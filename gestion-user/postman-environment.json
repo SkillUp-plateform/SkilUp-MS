@@ -1,0 +1,59 @@
+{
+  "id": "user-management-env",
+  "name": "User Management System Environment",
+  "values": [
+    {
+      "key": "base_url",
+      "value": "http://localhost:8089",
+      "enabled": true
+    },
+    {
+      "key": "keycloak_url",
+      "value": "http://localhost:8080",
+      "enabled": true
+    },
+    {
+      "key": "realm_name",
+      "value": "my-app-realm",
+      "enabled": true
+    },
+    {
+      "key": "client_id",
+      "value": "admin-cli",
+      "enabled": true
+    },
+    {
+      "key": "access_token",
+      "value": "",
+      "enabled": true
+    },
+    {
+      "key": "refresh_token",
+      "value": "",
+      "enabled": true
+    },
+    {
+      "key": "user_keycloak_id",
+      "value": "",
+      "enabled": true
+    },
+    {
+      "key": "test_username",
+      "value": "postmantest",
+      "enabled": true
+    },
+    {
+      "key": "test_password",
+      "value": "password123",
+      "enabled": true
+    },
+    {
+      "key": "test_email",
+      "value": "postmantest@example.com",
+      "enabled": true
+    }
+  ],
+  "_postman_variable_scope": "environment",
+  "_postman_exported_at": "2024-01-01T00:00:00.000Z",
+  "_postman_exported_using": "Postman/10.0.0"
+}

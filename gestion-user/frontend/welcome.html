@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Page d'accueil - Bienvenue</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <div class="container">
+        <div class="welcome-card">
+            <h1>Bienvenue <span id="userName"></span>!</h1>
+            <p>Votre inscription a été réussie.</p>
+            <p>Vous êtes maintenant connecté en tant qu'utilisateur.</p>
+            
+            <div class="user-info">
+                <h3>Vos informations:</h3>
+                <p><strong>Nom d'utilisateur:</strong> <span id="userUsername"></span></p>
+                <p><strong>Email:</strong> <span id="userEmail"></span></p>
+                <p><strong>Nom complet:</strong> <span id="userFullName"></span></p>
+            </div>
+            
+            <button onclick="logout()">Se déconnecter</button>
+            <p class="auth-link">
+                <a href="index.html">Retour à l'accueil</a>
+            </p>
+        </div>
+    </div>
+    
+    <script src="js/welcome.js"></script>
+</body>
+</html>

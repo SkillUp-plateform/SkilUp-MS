@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Panel Formateur</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <div class="container">
+        <div class="formateur-panel">
+            <header>
+                <h1>Panel Formateur</h1>
+                <button onclick="logout()" class="logout-btn">Se déconnecter</button>
+            </header>
+            
+            <div class="welcome-section">
+                <h2>Bienvenue <span id="formateurName"></span>!</h2>
+                <p>Vous êtes connecté en tant que formateur.</p>
+            </div>
+            
+            <div class="formateur-info">
+                <h3>Vos informations:</h3>
+                <p><strong>Nom d'utilisateur:</strong> <span id="formateurUsername"></span></p>
+                <p><strong>Email:</strong> <span id="formateurEmail"></span></p>
+                <p><strong>Nom complet:</strong> <span id="formateurFullName"></span></p>
+            </div>
+            
+            <div class="formateur-actions">
+                <h3>Actions disponibles:</h3>
+                <p>Ici vous pourrez gérer vos cours et vos étudiants.</p>
+                <!-- Future functionality can be added here -->
+            </div>
+            
+            <p class="auth-link">
+                <a href="index.html">Retour à l'accueil</a>
+            </p>
+        </div>
+    </div>
+    
+    <script src="js/formateur-panel.js"></script>
+</body>
+</html>

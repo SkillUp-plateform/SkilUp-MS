@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gestion des Utilisateurs - Accueil</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Système de Gestion des Utilisateurs</h1>
+            <p>Choisissez votre type de connexion</p>
+        </header>
+        
+        <div class="login-options">
+            <div class="login-card">
+                <h2>Utilisateur</h2>
+                <p>Pour les utilisateurs réguliers</p>
+                <div class="button-group">
+                    <button onclick="window.location.href='user-register.html'">S'inscrire</button>
+                    <button onclick="window.location.href='user-login.html'">Se connecter</button>
+                </div>
+            </div>
+            
+            <div class="login-card">
+                <h2>Administrateur</h2>
+                <p>Pour la gestion des formateurs</p>
+                <button onclick="window.location.href='admin-login.html'">Connexion Admin</button>
+            </div>
+            
+            <div class="login-card">
+                <h2>Formateur</h2>
+                <p>Pour les formateurs</p>
+                <button onclick="window.location.href='formateur-login.html'">Connexion Formateur</button>
+            </div>
+        </div>
+    </div>
+    
+    <script src="js/main.js"></script>
+</body>
+</html>

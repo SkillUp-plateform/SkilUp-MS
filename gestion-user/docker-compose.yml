@@ -1,0 +1,85 @@
+version: '3.8'
+
+services:
+  postgres:
+    image: postgres:13
+    container_name: postgres_db
+    environment:
+      POSTGRES_DB: keycloak_db
+      POSTGRES_USER: keycloak
+      POSTGRES_PASSWORD: password
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+    networks:
+      - my-network
+
+  keycloak:
+    image: quay.io/keycloak/keycloak:19.0.1
+    container_name: keycloak_server
+    command: start-dev
+    environment:
+      # Database settings
+      KC_DB: postgres
+      KC_DB_URL_HOST: postgres
+      KC_DB_URL_DATABASE: keycloak_db
+      KC_DB_USERNAME: keycloak
+      KC_DB_PASSWORD: password
+      # Admin credentials
+      KEYCLOAK_ADMIN: admin
+      KEYCLOAK_ADMIN_PASSWORD: admin
+    ports:
+      - "8080:8080"
+    depends_on:
+      - postgres
+    networks:
+      - my-network
+    healthcheck:
+      test: ["CMD-SHELL", "curl -f http://localhost:8080/ || exit 1"]
+      interval: 30s
+      timeout: 10s
+      retries: 10
+      start_period: 60s
+
+  python-app:
+    build: ./python-app
+    container_name: python_user_manager
+    ports:
+      - "8089:8089"
+    volumes:
+      - ./python-app:/usr/src/app  # Mount local code for live reload
+    depends_on:
+      keycloak:
+        condition: service_healthy
+      postgres:
+        condition: service_started
+    networks:
+      - my-network
+    # Pass environment variables to the Python app
+    environment:
+      - KEYCLOAK_URL=http://keycloak:8080/
+      - KEYCLOAK_REALM=my-app-realm
+      - KEYCLOAK_ADMIN_USER=admin
+      - KEYCLOAK_ADMIN_PASSWORD=admin
+      - POSTGRES_DB=keycloak_db
+      - POSTGRES_USER=keycloak
+      - POSTGRES_PASSWORD=password
+      - POSTGRES_HOST=postgres
+      # Eureka configuration - connect to host machine's Eureka server
+      - EUREKA_SERVER_URL=http://host.docker.internal:8761/eureka/
+      - INSTANCE_HOST=python_user_manager
+    healthcheck:
+      test: ["CMD-SHELL", "curl -f http://localhost:8089/health || exit 1"]
+      interval: 30s
+      timeout: 10s
+      retries: 5
+      start_period: 40s
+
+volumes:
+  postgres_data:
+    driver: local
+
+networks:
+  my-network:
+    driver: bridge
