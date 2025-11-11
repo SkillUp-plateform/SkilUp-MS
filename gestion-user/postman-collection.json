@@ -1,0 +1,372 @@
+{
+  "info": {
+    "name": "User Management System API",
+    "description": "Complete API collection for testing user registration, authentication, and management",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "Health Check",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:8089/health",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "8089",
+          "path": ["health"]
+        },
+        "description": "Check if Python API and Keycloak are running"
+      }
+    },
+    {
+      "name": "Keycloak Configuration",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:8080/realms/my-app-realm/.well-known/openid-configuration",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "8080",
+          "path": ["realms", "my-app-realm", ".well-known", "openid-configuration"]
+        },
+        "description": "Get Keycloak OpenID configuration"
+      }
+    },
+    {
+      "name": "User Registration",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"username\": \"newuser\",\n  \"email\": \"newuser@example.com\",\n  \"password\": \"password123\",\n  \"fullName\": \"New User\",\n  \"roles\": [\"user\"]\n}"
+        },
+        "url": {
+          "raw": "http://localhost:8089/users",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "8089",
+          "path": ["users"]
+        },
+        "description": "Register a new user through Python API"
+      }
+    },
+    {
+      "name": "Formateur Registration",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"username\": \"newformateur\",\n  \"email\": \"newformateur@example.com\",\n  \"password\": \"formateur123\",\n  \"fullName\": \"New Formateur\",\n  \"roles\": [\"formateur\"]\n}"
+        },
+        "url": {
+          "raw": "http://localhost:8089/users",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "8089",
+          "path": ["users"]
+        },
+        "description": "Register a new formateur through Python API"
+      }
+    },
+    {
+      "name": "Admin Registration",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"username\": \"newadmin\",\n  \"email\": \"newadmin@example.com\",\n  \"password\": \"admin123\",\n  \"fullName\": \"New Admin\",\n  \"roles\": [\"admin\"]\n}"
+        },
+        "url": {
+          "raw": "http://localhost:8089/users",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "8089",
+          "path": ["users"]
+        },
+        "description": "Register a new admin through Python API"
+      }
+    },
+    {
+      "name": "User Login (Keycloak)",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/x-www-form-urlencoded"
+          }
+        ],
+        "body": {
+          "mode": "urlencoded",
+          "urlencoded": [
+            {
+              "key": "username",
+              "value": "testuser",
+              "description": "Username for login"
+            },
+            {
+              "key": "password",
+              "value": "testuser",
+              "description": "Password for login"
+            },
+            {
+              "key": "client_id",
+              "value": "my-app-client",
+              "description": "Keycloak client ID"
+            },
+            {
+              "key": "client_secret",
+              "value": "J8cChqYP81yh9WPSy9UEKkWy85CLj7Bu",
+              "description": "Keycloak client secret"
+            },
+            {
+              "key": "grant_type",
+              "value": "password",
+              "description": "OAuth2 grant type"
+            }
+          ]
+        },
+        "url": {
+          "raw": "http://localhost:8080/realms/my-app-realm/protocol/openid-connect/token",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "8080",
+          "path": ["realms", "my-app-realm", "protocol", "openid-connect", "token"]
+        },
+        "description": "Login user through Keycloak and get access token"
+      }
+    },
+    {
+      "name": "Token Introspection",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/x-www-form-urlencoded"
+          }
+        ],
+        "body": {
+          "mode": "urlencoded",
+          "urlencoded": [
+            {
+              "key": "token",
+              "value": "{{access_token}}",
+              "description": "Access token to introspect"
+            },
+            {
+              "key": "client_id",
+              "value": "my-app-client",
+              "description": "Keycloak client ID"
+            },
+            {
+              "key": "client_secret",
+              "value": "J8cChqYP81yh9WPSy9UEKkWy85CLj7Bu",
+              "description": "Keycloak client secret"
+            }
+          ]
+        },
+        "url": {
+          "raw": "http://localhost:8080/realms/my-app-realm/protocol/openid-connect/token/introspect",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "8080",
+          "path": ["realms", "my-app-realm", "protocol", "openid-connect", "token", "introspect"]
+        },
+        "description": "Introspect access token to verify roles"
+      }
+    },
+    {
+      "name": "Admin Login (Keycloak)",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/x-www-form-urlencoded"
+          }
+        ],
+        "body": {
+          "mode": "urlencoded",
+          "urlencoded": [
+            {
+              "key": "username",
+              "value": "admin",
+              "description": "Admin username"
+            },
+            {
+              "key": "password",
+              "value": "admin",
+              "description": "Admin password"
+            },
+            {
+              "key": "client_id",
+              "value": "my-app-client",
+              "description": "Keycloak client ID"
+            },
+            {
+              "key": "client_secret",
+              "value": "J8cChqYP81yh9WPSy9UEKkWy85CLj7Bu",
+              "description": "Keycloak client secret"
+            },
+            {
+              "key": "grant_type",
+              "value": "password",
+              "description": "OAuth2 grant type"
+            }
+          ]
+        },
+        "url": {
+          "raw": "http://localhost:8080/realms/my-app-realm/protocol/openid-connect/token",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "8080",
+          "path": ["realms", "my-app-realm", "protocol", "openid-connect", "token"]
+        },
+        "description": "Login admin through Keycloak and get access token"
+      }
+    },
+    {
+      "name": "Formateur Login (Keycloak)",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/x-www-form-urlencoded"
+          }
+        ],
+        "body": {
+          "mode": "urlencoded",
+          "urlencoded": [
+            {
+              "key": "username",
+              "value": "farouk",
+              "description": "Formateur username"
+            },
+            {
+              "key": "password",
+              "value": "farouk",
+              "description": "Formateur password"
+            },
+            {
+              "key": "client_id",
+              "value": "my-app-client",
+              "description": "Keycloak client ID"
+            },
+            {
+              "key": "client_secret",
+              "value": "J8cChqYP81yh9WPSy9UEKkWy85CLj7Bu",
+              "description": "Keycloak client secret"
+            },
+            {
+              "key": "grant_type",
+              "value": "password",
+              "description": "OAuth2 grant type"
+            }
+          ]
+        },
+        "url": {
+          "raw": "http://localhost:8080/realms/my-app-realm/protocol/openid-connect/token",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "8080",
+          "path": ["realms", "my-app-realm", "protocol", "openid-connect", "token"]
+        },
+        "description": "Login formateur through Keycloak and get access token"
+      }
+    },
+    {
+      "name": "Get User Info",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:8089/users/{keycloak_id}",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "8089",
+          "path": ["users", "{keycloak_id}"],
+          "variable": [
+            {
+              "key": "keycloak_id",
+              "value": "user-keycloak-id-here",
+              "description": "Keycloak user ID"
+            }
+          ]
+        },
+        "description": "Get user information from Python API"
+      }
+    },
+    {
+      "name": "Get All Users",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:8089/users",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "8089",
+          "path": ["users"]
+        },
+        "description": "Get all users (if endpoint exists)"
+      }
+    }
+  ],
+  "event": [
+    {
+      "listen": "prerequest",
+      "script": {
+        "type": "text/javascript",
+        "exec": [
+          "// Add timestamp to requests for debugging",
+          "pm.globals.set(\"timestamp\", new Date().toISOString());"
+        ]
+      }
+    }
+  ],
+  "variable": [
+    {
+      "key": "base_url",
+      "value": "http://localhost:8089",
+      "type": "string"
+    },
+    {
+      "key": "keycloak_url",
+      "value": "http://localhost:8080",
+      "type": "string"
+    },
+    {
+      "key": "access_token",
+      "value": "",
+      "type": "string"
+    },
+    {
+      "key": "user_keycloak_id",
+      "value": "",
+      "type": "string"
+    }
+  ]
+}

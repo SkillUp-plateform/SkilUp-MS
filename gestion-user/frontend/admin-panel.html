@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Panel Administrateur</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <div class="container">
+        <div class="admin-panel">
+            <header>
+                <h1>Panel Administrateur</h1>
+                <button onclick="logout()" class="logout-btn">Se déconnecter</button>
+            </header>
+            
+            <div class="admin-section">
+                <h2>Ajouter un Formateur</h2>
+                <form id="formateurForm">
+                    <div class="form-group">
+                        <label for="formateurUsername">Nom d'utilisateur:</label>
+                        <input type="text" id="formateurUsername" name="username" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="formateurEmail">Email:</label>
+                        <input type="email" id="formateurEmail" name="email" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="formateurPassword">Mot de passe:</label>
+                        <input type="password" id="formateurPassword" name="password" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="formateurFullName">Nom complet:</label>
+                        <input type="text" id="formateurFullName" name="fullName" required>
+                    </div>
+                    
+                    <button type="submit">Créer Formateur</button>
+                </form>
+                
+                <div id="message" class="message"></div>
+            </div>
+            
+            <div class="admin-section">
+                <h2>Formateurs existants</h2>
+                <div id="formateursList" class="users-list">
+                    <p>Chargement des formateurs...</p>
+                </div>
+            </div>
+            
+            <p class="auth-link">
+                <a href="index.html">Retour à l'accueil</a>
+            </p>
+        </div>
+    </div>
+    
+    <script src="js/admin-panel.js"></script>
+</body>
+</html>

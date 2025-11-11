@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test Authentication</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Test Authentication</h1>
+        
+        <div class="auth-card">
+            <h2>Test User Registration</h2>
+            <form id="testRegisterForm">
+                <input type="text" id="testUsername" placeholder="Username" required>
+                <input type="email" id="testEmail" placeholder="Email" required>
+                <input type="password" id="testPassword" placeholder="Password" required>
+                <input type="text" id="testFullName" placeholder="Full Name" required>
+                <button type="submit">Register</button>
+            </form>
+            <div id="testRegisterMessage" class="message"></div>
+        </div>
+        
+        <div class="auth-card">
+            <h2>Test User Login</h2>
+            <form id="testLoginForm">
+                <input type="text" id="testLoginUsername" placeholder="Username" required>
+                <input type="password" id="testLoginPassword" placeholder="Password" required>
+                <button type="submit">Login</button>
+            </form>
+            <div id="testLoginMessage" class="message"></div>
+        </div>
+        
+        <div class="auth-card">
+            <h2>Test Admin Login</h2>
+            <form id="testAdminLoginForm">
+                <input type="text" id="testAdminUsername" placeholder="Username" required>
+                <input type="password" id="testAdminPassword" placeholder="Password" required>
+                <button type="submit">Admin Login</button>
+            </form>
+            <div id="testAdminLoginMessage" class="message"></div>
+        </div>
+        
+        <div class="auth-card">
+            <h2>Test Formateur Login</h2>
+            <form id="testFormateurLoginForm">
+                <input type="text" id="testFormateurUsername" placeholder="Username" required>
+                <input type="password" id="testFormateurPassword" placeholder="Password" required>
+                <button type="submit">Formateur Login</button>
+            </form>
+            <div id="testFormateurLoginMessage" class="message"></div>
+        </div>
+    </div>
+    
+    <script src="js/main.js"></script>
+    <script>
+        // Test registration
+        document.getElementById('testRegisterForm')?.addEventListener('submit', async function(e) {
+            e.preventDefault();
+            
+            const userData = {
+                username: document.getElementById('testUsername').value,
+                email: document.getElementById('testEmail').value,
+                password: document.getElementById('testPassword').value,
+                fullName: document.getElementById('testFullName').value
+            };
+            
+            const result = await registerUser(userData);
+            
+            if (result.success) {
+                showMessage('testRegisterMessage', 'Registration successful! You can now login.', false);
+                this.reset();
+            } else {
+                showMessage('testRegisterMessage', result.error, true);
+            }
+        });
+        
+        // Test user login
+        document.getElementById('testLoginForm')?.addEventListener('submit', async function(e) {
+            e.preventDefault();
+            
+            const username = document.getElementById('testLoginUsername').value;
+            const password = document.getElementById('testLoginPassword').value;
+            
+            const result = await loginUser(username, password);
+            
+            if (result.success) {
+                showMessage('testLoginMessage', 'Login successful! Token received.', false);
+                console.log('User data:', result.user);
+                console.log('Access token:', result.token);
+            } else {
+                showMessage('testLoginMessage', result.error, true);
+            }
+        });
+        
+        // Test admin login
+        document.getElementById('testAdminLoginForm')?.addEventListener('submit', async function(e) {
+            e.preventDefault();
+            
+            const username = document.getElementById('testAdminUsername').value;
+            const password = document.getElementById('testAdminPassword').value;
+            
+            const result = await loginAdmin(username, password);
+            
+            if (result.success) {
+                showMessage('testAdminLoginMessage', 'Admin login successful!', false);
+                console.log('Admin user data:', result.user);
+            } else {
+                showMessage('testAdminLoginMessage', result.error, true);
+            }
+        });
+        
+        // Test formateur login
+        document.getElementById('testFormateurLoginForm')?.addEventListener('submit', async function(e) {
+            e.preventDefault();
+            
+            const username = document.getElementById('testFormateurUsername').value;
+            const password = document.getElementById('testFormateurPassword').value;
+            
+            const result = await loginFormateur(username, password);
+            
+            if (result.success) {
+                showMessage('testFormateurLoginMessage', 'Formateur login successful!', false);
+                console.log('Formateur user data:', result.user);
+            } else {
+                showMessage('testFormateurLoginMessage', result.error, true);
+            }
+        });
+    </script>
+</body>
+</html>
