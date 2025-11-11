@@ -1,0 +1,25 @@
+<!-- Barre latérale -->
+<app-side-bar-formateur (toggle)="onSidebarToggle($event)"></app-side-bar-formateur>
+
+<!-- Contenu principal -->
+<div class="main-content" [class.collapsed]="isSidebarCollapsed">
+  <div class="container">
+    <div class="row">
+      <div class="col-12 py-0 px-1">
+        <div class="row">
+          <div class="col-md-6 col-lg-4 pb-2" *ngFor="let card of cards; let i = index">
+            <div class="card bg-dark text-white">
+              <img class="card-img img-fluid" [src]="card.image" alt="Image de formation">
+              <div class="card-img-overlay" (mouseenter)="showText(i)" (mouseleave)="hideText(i)">
+                <button (click)="goToAccesPage(card)" class="btn btn-link align-self-end">
+                  <span class="badge">{{ card.category }}</span>
+                  <p class="textfeat" *ngIf="textVisible[i]">{{ card.description }}</p>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

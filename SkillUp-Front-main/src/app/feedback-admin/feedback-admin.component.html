@@ -1,0 +1,60 @@
+<app-side-bar (toggle)="onSidebarToggle($event)"></app-side-bar>
+<br>
+<div class="main-content" [class.collapsed]="isSidebarCollapsed">
+  <div class="container">
+    <div class="row align-items-center">
+      <div class="col-md-6">
+        <div class="mb-3">
+          <h5 class="card-title">Liste des Commentaires <span class="text-muted fw-normal ms-2">({{ comments.length }})</span></h5>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-lg-12">
+        <div class="table-responsive">
+          <table class="table project-list-table table-nowrap align-middle table-borderless">
+            <thead>
+              <tr>
+                <th scope="col">Nom</th>
+                <th scope="col">Commentaire</th>
+                <th scope="col">Date</th>
+                <th *ngIf="showActionColumn" scope="col">Action</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let comment of comments">
+                <td>{{ comment.user?.firstname || '' }} {{ comment.user?.lastname || '' }}</td> <!-- Display user name -->
+                <td>{{ comment.content }}</td>
+                <td>{{ comment.date | date:'short' }}</td> <!-- Display date -->
+                <td *ngIf="showActionColumn">
+                  <ul class="list-inline mb-0">
+                    <li class="list-inline-item">
+                      <button class="btn btn-link text-danger p-0" data-bs-toggle="tooltip" data-bs-placement="top" title="Supprimer" (click)="confirmDelete(comment, deleteModal)">
+                        <i class="bx bx-trash-alt font-size-18"></i>
+                      </button>
+                    </li>
+                  </ul>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal de Confirmation de Suppression -->
+  <ng-template #deleteModal let-modal>
+    <div class="modal-header">
+      <h5 class="modal-title">Supprimer un Commentaire</h5>
+      <button type="button" class="btn-close" (click)="closeDelete()"></button>
+    </div>
+    <div class="modal-body">
+      <p>Êtes-vous sûr de vouloir supprimer ce commentaire ? Cette action est irréversible.</p>
+    </div>
+    <div class="modal-footer">
+      <button type="button" class="btn btn-danger" (click)="deleteFeedback()">Supprimer</button>
+      <button type="button" class="btn btn-secondary" (click)="closeDelete()">Annuler</button>
+    </div>
+  </ng-template>
+</div>

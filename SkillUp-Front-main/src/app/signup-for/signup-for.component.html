@@ -1,0 +1,89 @@
+              <section class="auth-section">
+  <div class="auth-container">
+    <div class="auth-image">
+      <img src="https://cdn-images.welcometothejungle.com/HZCwJTR-LETSPVFzLgfJgie-wBb47hIl0jbsBWk__ok/rs:auto:1500::/q:85/czM6Ly93dHRqLXByb2R1Y3Rpb24vdXBsb2Fkcy9hcnRpY2xlL2ltYWdlLzM2NzMvMTUxOTc0L2Zvcm1hdGlvbnMtbW9kZS1lbXBsb2kuanBn" alt="formulaire d'inscription" class="img-fluid" style="height: 100%; object-fit: cover; border-radius: 1rem 0 0 1rem;">
+    </div>
+    <div class="auth-content">
+      <div>
+        <div class="d-flex align-items-center mb-3 pb-1">
+          <img src="../../assets/template/img/Blue Modern Free Academy Logo.png" alt="Company Logo" height="150" width="150" style="margin-left:80px; margin-top:-50px;">
+        </div>
+
+        <h5 class="fw-normal mb-3 pb-3" style="letter-spacing: 1px;">Créez votre compte</h5>
+
+        <form class="auth-form" [formGroup]="forminput" (ngSubmit)="signUp()">
+          <div class="form-group">
+            <label for="firstname">Nom</label>
+            <input type="text" id="firstname" formControlName="firstname" placeholder="Entrez votre nom">
+            <div class="alert" *ngIf="forminput.controls['firstname'].touched && forminput.controls['firstname'].errors?.['required']">
+              Le nom est requis !
+            </div>
+            
+          </div>
+
+          <div class="form-group">
+            <label for="lastname">Prénom</label>
+            <input type="text" id="lastname" formControlName="lastname" placeholder="Entrez votre prénom">
+            <div class="alert" *ngIf="forminput.controls['lastname'].touched && forminput.controls['lastname'].errors?.['required']">
+              Le Prénom est requis !
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="email">Adresse email</label>
+            <input type="email" id="email" formControlName="email" placeholder="Entrez votre adresse email">
+            <div class="alert" *ngIf="forminput.controls['email'].touched && forminput.controls['email'].errors?.['required']">
+              L'email est requis !
+            </div>
+            <div class="alert" *ngIf="forminput.controls['email'].touched && forminput.controls['email'].errors?.['email']">
+              L'email est invalide !
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="username">Nom d'utilisation</label>
+            <input type="text" id="username" formControlName="username" placeholder="Entrez votre nom d'utilisation">
+            <div class="alert" *ngIf="forminput.controls['username'].touched && forminput.controls['username'].errors?.['required']">
+              Le nom d'utilisation est requis !
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="address">Adresse</label>
+            <input type="text" id="address" formControlName="address" placeholder="Entrez votre address">
+            <div class="alert" *ngIf="forminput.controls['address'].touched && forminput.controls['address'].errors?.['required']">
+              L'adresse est requise !
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="speciality">Spécialité</label>
+            <input type="text" id="speciality" formControlName="speciality" placeholder="Entrez votre spécialité">
+            <div class="alert" *ngIf="forminput.controls['speciality'].touched && forminput.controls['address'].errors?.['required']">
+                spécialité est requise !
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="password">Mot de passe</label>
+            <input type="password" id="password" formControlName="password" placeholder="Entrez votre mot de passe">
+            <div *ngIf="forminput.controls['password'].touched && forminput.controls['password'].errors?.['required']" class="text-danger">
+              Le mot de passe est requis.
+            </div>
+          </div>
+
+          <div class="form-group">
+            <img class="img-account-profile rounded-circle mb-2" height="50" width="50" [src]="selectedImage" alt="">
+            <input type="file" class="form-control" (change)="onFileSelected($event)">
+          </div>
+
+          <button type="submit" class="auth-button">S'inscrire</button>
+          <p class="auth-footer">
+            Vous avez déjà un compte ? <a routerLink="/signin">Connectez-vous ici</a><br>
+            <a routerLink="/home">Retour à l'accueil</a>
+          </p>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>

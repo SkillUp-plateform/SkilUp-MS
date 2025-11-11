@@ -1,0 +1,89 @@
+<app-side-bar (toggle)="onSidebarToggle($event)"></app-side-bar>
+
+<div class="main-content" [class.collapsed]="isSidebarCollapsed">
+  <div class="card-container">
+    
+    <!-- Carte Total Projets -->
+    <div class="card">
+      <div class="card-content">
+        <div class="card-header">
+          <h3>Projets</h3>
+          <div class="icon" style="background-color: #7c4dff;">
+            <i class="fas fa-tasks"></i>
+          </div>
+        </div>
+        <div class="card-body">
+          <h2>{{ numberOfProjects }}</h2>
+          <p>Total des Projets</p>
+        </div>
+      </div>
+    </div>
+    
+    <!-- Carte Total Formateurs -->
+    <div class="card">
+      <div class="card-content">
+        <div class="card-header">
+          <h3>Formateurs</h3>
+          <div class="icon" style="background-color: #00bcd4;">
+            <i class="fas fa-chalkboard-teacher"></i>
+          </div>
+        </div>
+        <div class="card-body">
+          <h2>{{ numberOfTrainers }}</h2>
+          <p>Total des Formateurs</p>
+        </div>
+      </div>
+    </div>
+    
+    <!-- Carte Total Utilisateurs -->
+    <div class="card">
+      <div class="card-content">
+        <div class="card-header">
+          <h3>Utilisateurs</h3>
+          <div class="icon" style="background-color: #ff4081;">
+            <i class="fas fa-users"></i>
+          </div>
+        </div>
+        <div class="card-body">
+          <h2>{{ numberOfUsers }}</h2>
+          <p>Total des Utilisateurs</p>
+        </div>
+      </div>
+    </div>
+    
+    <!-- Carte Total Formations -->
+    <div class="card">
+      <div class="card-content">
+        <div class="card-header">
+          <h3>Formations</h3>
+          <div class="icon" style="background-color: #ff9800;">
+            <i class="fas fa-graduation-cap"></i>
+          </div>
+        </div>
+        <div class="card-body">
+          <h2>{{ numberOfFormations }}</h2>
+          <p>Total des Formations</p>
+        </div>
+      </div>
+    </div>
+    
+    <!-- Carte Total Commentaires -->
+    <div class="card">
+      <div class="card-content">
+        <div class="card-header">
+          <h3>Commentaires</h3>
+          <div class="icon" style="background-color: #9c27b0;">
+            <i class="fas fa-comments"></i>
+          </div>
+        </div>
+        <div class="card-body">
+          <h2>{{ numberOfComments }}</h2>
+          <p>Total des Commentaires</p>
+        </div>
+      </div>
+    </div>
+    
+    
+    
+  </div>
+</div>

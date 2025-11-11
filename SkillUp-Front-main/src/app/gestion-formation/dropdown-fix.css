@@ -1,0 +1,22 @@
+/* Fix for dropdown visibility - Add this to component CSS */
+select.form-control {
+  color: #000 !important;
+  background-color: #fff !important;
+}
+
+select.form-control option {
+  color: #000 !important;
+  background-color: #fff !important;
+  padding: 8px !important;
+  font-size: 14px !important;
+}
+
+select.form-control option:hover {
+  background-color: #007bff !important;
+  color: #fff !important;
+}
+
+select.form-control option:checked {
+  background-color: #007bff !important;
+  color: #fff !important;
+}

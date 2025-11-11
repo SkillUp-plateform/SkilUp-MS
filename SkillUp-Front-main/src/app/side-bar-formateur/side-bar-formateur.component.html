@@ -1,0 +1,30 @@
+<div class="sidebar" [class.collapsed]="isCollapsed">
+    <div class="logo">
+      <i class="fas fa-bars" (click)="toggleSidebar()"></i>&nbsp;
+      <h2 *ngIf="!isCollapsed">SkillUp</h2>
+    </div>
+    <ul class="nav">
+      <li>
+        <a routerLink="/formateur/home" [ngClass]="{'active': activeLink === 'home'}">
+          <i class="fas fa-tachometer-alt"></i>
+          <span *ngIf="!isCollapsed">Accueil</span>
+        </a>
+      </li>
+      <li (click)="logout()">
+        <a [ngClass]="{'active': activeLink === 'logout'}">
+          <i class="fas fa-sign-out-alt"></i>
+          <span *ngIf="!isCollapsed">Déconnexion</span>
+        </a>
+      </li>
+    </ul>
+  </div>
+  <div class="main-content" [class.collapsed]="isCollapsed">
+    <div class="header">
+      <div class="profile">
+        <p>{{ user?.firstname }} {{ user?.lastname }}</p>&nbsp;
+      </div>
+    </div>
+    
+  </div>
+  
+  

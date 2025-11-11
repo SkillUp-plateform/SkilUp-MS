@@ -1,0 +1,19 @@
+.apply-card {
+  background: #fff;
+  border-radius: 16px;
+  padding: 20px;
+  box-shadow: 0 12px 30px rgba(0,0,0,.12);
+  max-width: 720px;
+  margin: 24px auto;
+}
+.apply-card h2 { margin: 0 0 8px; font-size: 24px; color: #0f172a; }
+.subtitle { color: #64748b; margin-bottom: 16px; }
+.form-row { margin-bottom: 14px; display: grid; gap: 6px; }
+.input { padding: 10px 12px; border: 1px solid #e5e7eb; border-radius: 8px; font-size: 14px; }
+.input.readonly { background: #f8fafc; color: #475569; }
+.btn-primary.wide { width: 100%; border: none; padding: 12px 14px; border-radius: 10px; background: #186db4; color: #fff; font-weight: 600; cursor: pointer; }
+.btn-primary.wide:disabled { opacity: .7; cursor: not-allowed; }
+.feedback { margin-top: 12px; }
+.feedback.success { color: #155724; background: #d4edda; border-radius: 8px; padding: 8px; }
+.feedback.error { color: #721c24; background: #f8d7da; border-radius: 8px; padding: 8px; }
+.file-hint { font-size: 12px; color: #475569; }

@@ -1,0 +1,29 @@
+.page { padding: 16px; }
+.toolbar { display: flex; gap: 8px; align-items: center; margin-bottom: 12px; }
+.loading { padding: 8px; color: #186db4; }
+.error { color: #c62828; margin: 8px 0; }
+.table { width: 100%; border-collapse: collapse; background: #fff; border: 1px solid #e5e7eb; }
+.table th, .table td { padding: 10px; border-bottom: 1px solid #f1f5f9; text-align: left; }
+.motivation { max-width: 360px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.badge { padding: 4px 10px; border-radius: 999px; font-size: 12px; font-weight: 600; }
+.badge-pending { background: #fff3cd; color: #856404; }
+.badge-approved { background: #d4edda; color: #155724; }
+.badge-rejected { background: #f8d7da; color: #721c24; }
+.actions { display: flex; gap: 8px; }
+.btn { border: none; padding: 6px 10px; border-radius: 6px; cursor: pointer; }
+.btn-approve { background: #186db4; color: #fff; }
+.btn-reject { background: #d32f2f; color: #fff; }
+.link { color: #186db4; cursor: pointer; text-decoration: underline; }
+.empty-state { color: #6b7280; padding: 12px; }
+.filters { margin-bottom: 12px; }
+.btn { margin-right: 6px; }
+
+/* Panneau de détails */
+.modal-overlay { position: fixed; inset: 0; background: rgba(0,0,0,.35); display: flex; align-items: center; justify-content: center; z-index: 1000; }
+.modal { background: #fff; width: 720px; max-width: 95vw; border-radius: 12px; box-shadow: 0 10px 30px rgba(0,0,0,.2); }
+.modal-header { display: flex; align-items: center; justify-content: space-between; padding: 12px 16px; border-bottom: 1px solid #eee; }
+.modal-body { padding: 16px; }
+.modal-footer { padding: 12px 16px; border-top: 1px solid #eee; display: flex; gap: 8px; justify-content: flex-end; }
+.close { border: none; background: transparent; font-size: 24px; line-height: 1; cursor: pointer; }
+.details-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+.full-motivation { grid-column: 1 / -1; }

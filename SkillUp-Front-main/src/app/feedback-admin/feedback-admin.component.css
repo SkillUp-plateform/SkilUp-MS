@@ -1,0 +1,146 @@
+/* Styles pour la table des commentaires */
+.project-list-table td, .project-list-table th {
+    vertical-align: middle;
+  }
+  
+  .avatar-sm {
+    height: 2rem;
+    width: 2rem;
+    border-radius: 50%;
+  }
+  
+  .btn-link {
+    color: inherit;
+    font-size: 1.25rem;
+  }
+  
+  .btn-link.text-primary {
+    color: #007bff;
+  }
+  
+  .btn-link.text-danger {
+    color: #dc3545;
+  }
+  
+  .modal-header.delete-header {
+    background-color: #f8d7da;
+    border-color: #f5c6cb;
+    color: #721c24;
+  }
+  
+  .modal-content {
+    border-radius: 0.3rem;
+    box-shadow: 0 3px 9px rgba(0, 0, 0, 0.5);
+  }
+  
+  .modal-footer {
+    display: flex;
+    justify-content: flex-end;
+    padding: 1rem;
+  }
+  
+  /* Styles pour la barre latérale */
+  app-side-bar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 250px; /* Ajustez la largeur selon vos besoins */
+    color: #ffffff; /* Couleur du texte */
+    transition: width 0.3s; /* Transition fluide pour le rétrécissement */
+    z-index: 1000; /* Assurez-vous que la barre latérale soit au-dessus du reste du contenu */
+    overflow-y: auto; /* Défilement si le contenu dépasse */
+  }
+  
+  app-side-bar.collapsed {
+    width: 60px; /* Largeur réduite quand la barre latérale est réduite */
+  }
+  
+  /* Styles pour le contenu principal */
+  .main-content {
+    margin-top: 70px;
+    margin-left: 250px; /* Ajustez en fonction de la largeur de la barre latérale */
+    transition: margin-left 0.3s; /* Transition fluide pour le rétrécissement */
+    padding: 20px; /* Ajoutez du padding à l'intérieur du contenu principal */
+  }
+  
+  .main-content.collapsed {
+    margin-left: 60px; /* Ajustez pour la barre latérale réduite */
+  }
+  
+  /* Media Queries */
+  @media (max-width: 992px) {
+    app-side-bar {
+      width: 200px; /* Réduisez la largeur de la barre latérale sur les écrans plus petits */
+    }
+    
+    .main-content {
+      margin-left: 200px; /* Ajustez en fonction de la largeur de la barre latérale réduite */
+    }
+  
+    app-side-bar.collapsed {
+      width: 50px; /* Largeur réduite quand la barre latérale est réduite sur les écrans plus petits */
+    }
+  
+    .main-content.collapsed {
+      margin-left: 50px; /* Ajustez pour la barre latérale réduite sur les écrans plus petits */
+    }
+  }
+  
+  @media (max-width: 768px) {
+    app-side-bar {
+      width: 100px; /* Réduisez encore plus sur les écrans très petits */
+    }
+  
+    .main-content {
+      margin-left: 50px; /* Ajustez en fonction de la largeur de la barre latérale réduite */
+    }
+  
+    app-side-bar.collapsed {
+      width: 40px; /* Largeur réduite encore plus sur les écrans très petits */
+    }
+  
+    .main-content.collapsed {
+      margin-left: 40px; /* Ajustez pour la barre latérale réduite sur les écrans très petits */
+    }
+  
+    
+  }
+  /* Styles for the visibility toggle column */
+.visibility-toggle {
+    text-align: center;
+  }
+  
+  .visibility-toggle button {
+    border: none;
+    background: transparent;
+    color: #007bff; /* Primary color for visibility button */
+    font-size: 0.9rem;
+    cursor: pointer;
+    transition: color 0.3s;
+  }
+  
+  .visibility-toggle button:hover {
+    color: #0056b3; /* Darker color on hover */
+  }
+  
+  .visibility-toggle button.hidden {
+    color: #dc3545; /* Danger color for hidden status */
+  }
+  
+  .visibility-toggle button.hidden:hover {
+    color: #c82333; /* Darker color on hover */
+  }
+  
+  .visibility-toggle button.visible {
+    color: #28a745; /* Success color for visible status */
+  }
+  
+  .visibility-toggle button.visible:hover {
+    color: #218838; /* Darker color on hover */
+  }
+  
+  .table tbody td {
+    vertical-align: middle;
+  }
+  

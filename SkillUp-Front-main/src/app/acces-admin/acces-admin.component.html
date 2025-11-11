@@ -1,0 +1,96 @@
+<app-side-bar (toggle)="onSidebarToggle($event)"></app-side-bar>
+
+<div class="main-content" [class.collapsed]="isSidebarCollapsed">
+    <div class="container">
+      <!-- Access Codes Section -->
+      <div class="row align-items-center mt-5">
+        <div class="col-md-6">
+          <div class="mb-3">
+            <h5 class="card-title">Liste des Codes d'Accès <span class="text-muted fw-normal ms-2">({{accessCodeCount}})</span></h5>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="d-flex flex-wrap align-items-center justify-content-end gap-2 mb-3">
+            <button class="btn btn-primary" (click)="openAjoutAccessCodeModal()">
+              <i class="bx bx-plus me-1" style="color: white;"></i> Ajouter Code d'Accès
+            </button>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-lg-12">
+          <div class="table-responsive">
+            <table class="table project-list-table table-nowrap align-middle table-borderless">
+              <thead>
+                <tr>
+                  <th scope="col">Code</th>
+                  <th scope="col">Formation</th>
+                  <th scope="col" style="width: 200px;">Actions</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let code of accessCodes">
+                  <td>{{ code.code }}</td>
+                  <td>{{ code.formation.title }}</td>
+                  <td>
+                    <ul class="list-inline mb-0">
+                      <li class="list-inline-item">
+                        <button class="btn btn-link text-danger p-0" data-bs-toggle="tooltip" data-bs-placement="top" title="Delete" (click)="openDeleteAccessCodeModal(code)">
+                          <i class="bx bx-trash-alt font-size-18"></i>
+                        </button>
+                      </li>
+                    </ul>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+      </div>
+    </div>
+    <!-- Add Access Code Modal -->
+<div class="modal fade" id="ajouAccessCodeModel" tabindex="-1" aria-labelledby="ajouAccessCodeModelLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="ajouAccessCodeModelLabel">Ajouter Code d'Accès</h5>
+        <button type="button" class="btn-close" (click)="closeAjoutAccessCodeModal()" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form (ngSubmit)="addAccessCode()">
+          <div class="mb-3">
+            <label for="code" class="form-label">Code</label>
+            <input type="text" class="form-control" id="code" [(ngModel)]="accessCode.code" name="code" required>
+          </div>
+          <div class="mb-3">
+            <label for="formation" class="form-label">Formation</label>
+            <select class="form-select" id="formation" [(ngModel)]="selectedFormation" name="formation" required>
+              <option *ngFor="let formation of Formations" [ngValue]="formation">{{ formation.title }}</option>
+            </select>
+          </div>
+          <button type="submit" class="btn btn-primary" (click)="addAccessCode()">Ajouter</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Delete Access Code Modal -->
+<div class="modal fade" id="deleteAccessCodeModal" tabindex="-1" aria-labelledby="deleteAccessCodeModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="deleteAccessCodeModalLabel">Supprimer Code d'Accès</h5>
+        <button type="button" class="btn-close" (click)="closeDeleteAccessCodeModal()" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <p>Êtes-vous sûr de vouloir supprimer ce code d'accès ?</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" (click)="closeDeleteAccessCodeModal()">Annuler</button>
+        <button type="button" class="btn btn-danger" (click)="deleteAccessCode()">Supprimer</button>
+      </div>
+    </div>
+  </div>
+</div>

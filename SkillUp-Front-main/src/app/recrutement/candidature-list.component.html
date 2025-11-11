@@ -1,0 +1,114 @@
+<div class="page">
+  <h1>Liste des candidatures</h1>
+
+  <div class="toolbar">
+    <label>Filtrer par statut:</label>
+    <select (change)="onStatusChange($any($event.target).value)">
+      <option value="">Tous</option>
+      <option *ngFor="let s of statuses" [value]="s">{{ s }}</option>
+    </select>
+  </div>
+
+  <div *ngIf="loading" class="loading">Chargement en cours…</div>
+
+  <div *ngIf="error" class="error">{{ error }}</div>
+
+  <table class="table" *ngIf="!loading && candidatures.length">
+    <thead>
+      <tr>
+        <th>#</th>
+        <th>Utilisateur</th>
+        <th>Statut</th>
+        <th>Motivation</th>
+        <th>CV</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let c of candidatures">
+        <td>{{ c.id }}</td>
+        <td>{{ c.userId }}</td>
+        <!-- cellule Statut -->
+        <td>
+          <span class="badge"
+                [class.badge-pending]="c.status === CandidatureStatus.PENDING"
+                [class.badge-approved]="c.status === CandidatureStatus.APPROVED"
+                [class.badge-rejected]="c.status === CandidatureStatus.REJECTED">
+            {{ c.status }}
+          </span>
+        </td>
+        <td class="motivation" [title]="c.motivation || ''">{{ c.motivation || '—' }}</td>
+        <!-- Fix: bouton qui appelle une méthode TS -->
+        <td>
+          <button *ngIf="c.cvPath" class="link" (click)="downloadCv(c.id)">Télécharger</button>
+          <span *ngIf="!c.cvPath">—</span>
+        </td>
+        <td class="actions">
+          <button class="btn" (click)="openDetails(c)">Voir</button>
+          <button class="btn btn-approve" (click)="approve(c.id)" [disabled]="c.status === 'APPROVED'">
+            <i class="bx bx-check"></i> Approuver
+          </button>
+          <button class="btn btn-reject" (click)="reject(c.id)" [disabled]="c.status === 'REJECTED'">
+            <i class="bx bx-x"></i> Rejeter
+          </button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div *ngIf="!loading && !candidatures.length && !error" class="empty-state">
+    Aucune candidature.
+  </div>
+
+  <!-- Panneau de détails -->
+  <div class="modal-overlay" *ngIf="selectedCandidature">
+    <div class="modal">
+      <div class="modal-header">
+        <h3>Détails candidature #{{ selectedCandidature?.id }}</h3>
+        <button class="close" (click)="closeDetails()">×</button>
+      </div>
+
+      <div class="modal-body">
+        <div *ngIf="detailLoading" class="loading">Chargement des informations…</div>
+        <div *ngIf="detailError" class="error">{{ detailError }}</div>
+
+        <div class="details-grid" *ngIf="!detailLoading">
+          <div><strong>Utilisateur ID:</strong> {{ selectedCandidature?.userId }}</div>
+          <div><strong>Nom:</strong> {{ selectedUser?.firstname }} {{ selectedUser?.lastname }}</div>
+          <div><strong>Username:</strong> {{ selectedUser?.username }}</div>
+          <div><strong>Email:</strong> {{ selectedUser?.email }}</div>
+          <div><strong>Adresse:</strong> {{ selectedUser?.address }}</div>
+          <div><strong>Rôle:</strong> {{ selectedUser?.role }}</div>
+
+          <div><strong>Statut:</strong>
+            <span class="badge"
+                  [class.badge-pending]="selectedCandidature?.status === CandidatureStatus.PENDING"
+                  [class.badge-approved]="selectedCandidature?.status === CandidatureStatus.APPROVED"
+                  [class.badge-rejected]="selectedCandidature?.status === CandidatureStatus.REJECTED">
+              {{ selectedCandidature?.status }}
+            </span>
+          </div>
+
+          <div class="full-motivation">
+            <strong>Motivation:</strong>
+            <p>{{ selectedCandidature?.motivation || '—' }}</p>
+          </div>
+
+          <div>
+            <strong>CV:</strong>
+            <button class="link" (click)="downloadCv(selectedCandidature!.id)" [disabled]="!selectedCandidature?.cvPath">Télécharger</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="modal-footer actions">
+        <button class="btn btn-approve" (click)="approve(selectedCandidature!.id)" [disabled]="selectedCandidature?.status === 'APPROVED'">
+          Approuver
+        </button>
+        <button class="btn btn-reject" (click)="reject(selectedCandidature!.id)" [disabled]="selectedCandidature?.status === 'REJECTED'">
+          Rejeter
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

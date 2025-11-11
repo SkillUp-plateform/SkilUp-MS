@@ -1,0 +1,172 @@
+/* Styles généraux pour la barre latérale */
+.sidebar {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  width: 250px;
+  height: 100vh;
+  background: #186db4;
+  position: fixed;
+  left: 0;
+  top: 0;
+  padding-top: 20px;
+  color: white;
+  transition: width 0.3s, box-shadow 0.3s;
+  overflow-y: auto;
+  box-shadow: 4px 0 8px rgba(0, 0, 0, 0.2);
+}
+
+.sidebar.collapsed {
+  width: 80px;
+  box-shadow: none;
+}
+
+/* Styles pour la partie logo de la barre latérale */
+.sidebar .logo {
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+.sidebar .logo h2 {
+  color: white;
+  display: inline;
+  font-size: 24px;
+}
+
+.sidebar .logo i {
+  font-size: 24px;
+  cursor: pointer;
+}
+
+/* Styles pour les éléments de la barre latérale */
+.sidebar .nav {
+  list-style: none;
+  padding: 0;
+}
+
+.sidebar .nav li {
+  width: 100%;
+  margin-bottom: 10px; /* Ajuster l'espace entre les éléments */
+}
+
+.sidebar .nav li a {
+  text-decoration: none;
+  color: white;
+  padding: 12px 20px; /* Ajuster le padding pour plus de compacité */
+  display: flex;
+  align-items: center;
+  margin-left: 0; /* Retirer la marge pour occuper toute la largeur */
+  transition: 0.3s ease;
+  border-radius: 20px;
+  background-color: transparent;
+  font-size: 18px;
+}
+
+.sidebar .nav li a:hover,
+.sidebar .nav li a.active {
+  background: white;
+  color: #186db4;
+}
+
+.sidebar.collapsed .nav li a:hover,
+.sidebar.collapsed .nav li a.active {
+  background: white;
+  color: #186db4;
+}
+
+.sidebar .nav li a i {
+  margin-right: 15px;
+  font-size: 20px;
+}
+
+/* Lorsque la barre latérale est réduite */
+.sidebar.collapsed .nav li a i {
+  margin-right: 0;
+}
+
+/* Styles pour le contenu principal */
+.main-content {
+  margin-left: 250px;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  transition: margin-left 0.3s;
+}
+
+.main-content.collapsed {
+  margin-left: 80px;
+}
+
+.main-content .header {
+  width: calc(100% - 250px);
+  height: 60px;
+  background: #186db4;
+  color: white;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  padding-right: 30px;
+  position: fixed;
+  top: 0;
+  left: 250px;
+  z-index: 1000;
+  transition: left 0.3s, width 0.3s;
+}
+
+.main-content.collapsed .header {
+  width: calc(100% - 80px);
+  left: 80px;
+}
+
+.main-content .header .profile {
+  display: flex;
+  align-items: center;
+}
+
+.main-content .header .profile i {
+  margin-right: 10px;
+}
+
+.main-content .content {
+  padding: 80px 20px 20px 20px;
+  background: white;
+  min-height: calc(100vh - 60px);
+}
+
+/* Media query pour écrans plus petits */
+@media (max-width: 768px) {
+  .sidebar {
+    width: 10%;
+    margin-top: 10px; /* Prendre toute la largeur de l'écran */
+  }
+  .sidebar .logo h2{
+    display: none;
+  }
+
+  .sidebar.collapsed {
+    width: 90%;
+  }
+
+  .main-content {
+    margin-left: 0;
+  }
+
+  .main-content.collapsed {
+    margin-left: 0;
+  }
+
+  .main-content .header {
+    width: 100%;
+    left: 0;
+  }
+
+  .main-content.collapsed .header {
+    width: 100%;
+    left: 0;
+  }
+
+  /* Cacher le texte et afficher uniquement les icônes lorsque l'écran est petit */
+  .sidebar .nav li a span {
+    display: none; /* Masquer le texte */
+  }
+
+  .sidebar.collapsed .nav li a i {
+    font-size: 24px; /* Ajuster la taille de l'icône */
+  }
+}

@@ -1,0 +1,76 @@
+<div class="sidebar" [class.collapsed]="isCollapsed">
+  <div class="logo">
+    <i class="fas fa-bars" (click)="toggleSidebar()"></i>&nbsp;
+    <h2 *ngIf="!isCollapsed">SkillUp</h2>
+  </div>
+  <ul class="nav">
+    <li>
+      <a routerLink="/admin/dashboard" [ngClass]="{'active': activeLink === 'dashboard'}">
+        <i class="fas fa-tachometer-alt"></i>
+        <span *ngIf="!isCollapsed">Tableau de bord</span>
+      </a>
+    </li>
+    <li>
+      <a routerLink="/admin/gestion-utilisateur" [ngClass]="{'active': activeLink === 'utilisateur'}">
+        <i class="fas fa-user"></i>
+        <span *ngIf="!isCollapsed">Utilisateur</span>
+      </a>
+    </li>
+    <li>
+      <a routerLink="/admin/gestion-formateur" [ngClass]="{'active': activeLink === 'formateur'}">
+        <i class="fas fa-chalkboard-teacher"></i>
+        <span *ngIf="!isCollapsed">Formateur</span>
+      </a>
+    </li>
+    <li>
+      <a routerLink="/admin/gestion-formation" [ngClass]="{'active': activeLink === 'formation'}">
+        <i class="fas fa-book"></i>
+        <span *ngIf="!isCollapsed">Formation</span>
+      </a>
+    </li>
+    <li>
+      <a routerLink="/admin/acces" [ngClass]="{'active': activeLink === 'codeacces'}">
+        <i class="fas fa-key"></i>
+        <span *ngIf="!isCollapsed">Code d'accès</span>
+      </a>
+    </li>
+    <li>
+      <a routerLink="/admin/email" [ngClass]="{'active': activeLink === 'email'}">
+        <i class="fas fa-envelope"></i> <!-- Utilisez une icône de courrier pour la confirmation de paiement -->
+        <span *ngIf="!isCollapsed">Règlement</span>
+      </a>
+    </li>
+    <li>
+      <a routerLink="/admin/gestionprojet" [ngClass]="{'active': activeLink === 'projets'}">
+        <i class="fas fa-project-diagram"></i>
+        <span *ngIf="!isCollapsed">Projets</span>
+      </a>
+    </li>
+    <li>
+      <a routerLink="/admin/feedback" [ngClass]="{'active': activeLink === 'commentaire'}">
+        <i class="fas fa-comments"></i>
+        <span *ngIf="!isCollapsed">Commentaires</span>
+      </a>
+    </li>
+    <!-- Nouveau lien Candidatures -->
+    <li>
+      <a routerLink="/admin/recrutement/candidatures" [ngClass]="{'active': activeLink === 'candidatures'}">
+        <i class="fas fa-user-check"></i>
+        <span *ngIf="!isCollapsed">Candidatures</span>
+      </a>
+    </li>
+    <li>
+      <a (click)="logout()" [ngClass]="{'active': activeLink === 'logout'}">
+        <i class="fas fa-sign-out-alt"></i>
+        <span *ngIf="!isCollapsed">Déconnexion</span>
+      </a>
+    </li>
+  </ul>
+</div>
+<div class="main-content" [class.collapsed]="isCollapsed">
+  <div class="header">
+    <div class="profile">
+      <p>{{ user?.firstname }} {{ user?.lastname }}</p>&nbsp;
+    </div>
+  </div>
+</div>

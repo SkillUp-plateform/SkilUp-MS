@@ -1,0 +1,72 @@
+<app-side-bar (toggle)="onSidebarToggle($event)"></app-side-bar>
+
+<div class="container-xl px-4 mt-4 main-content" [ngClass]="{'collapsed': isSidebarCollapsed}">
+  <div class="card">
+    <div class="card-header">
+      <h2 class="mb-0"> Liste des candidatures</h2>
+    </div>
+    <div class="card-body">
+      <div class="filters mb-3">
+        <label class="form-label">Filtrer par statut:</label>
+        <select class="form-select" [(ngModel)]="selectedStatus" (change)="fetch()">
+          <option [ngValue]="undefined">Tous</option>
+          <option *ngFor="let s of statuses" [ngValue]="s">{{ s }}</option>
+        </select>
+      </div>
+
+      <div *ngIf="loading" class="text-center">
+        <div class="spinner-border text-primary" role="status">
+          <span class="visually-hidden">Chargement...</span>
+        </div>
+      </div>
+      
+      <div *ngIf="error" class="alert alert-danger">{{ error }}</div>
+
+      <div class="table-responsive" *ngIf="!loading && candidatures.length">
+        <table class="table table-hover">
+          <thead class="table-light">
+            <tr>
+              <th>ID</th>
+              <th> Utilisateur</th>
+              <th> Statut</th>
+              <th> Motivation</th>
+              <th> Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let c of candidatures">
+              <td>{{ c.id }}</td>
+              <td>
+                <strong>{{ getUsernameById(c.keycloakFormateurId) }}</strong>
+                <br>
+                <small class="text-muted">{{ c.keycloakFormateurId.substring(0, 8) }}...</small>
+              </td>
+              <td>
+                <span class="badge" [ngClass]="{
+                  'bg-warning': c.status === 'PENDING',
+                  'bg-success': c.status === 'APPROVED',
+                  'bg-danger': c.status === 'REJECTED'
+                }">
+                  {{ c.status }}
+                </span>
+              </td>
+              <td class="motivation">{{ c.motivation || '—' }}</td>
+              <td>
+                <button class="btn btn-sm btn-success me-2" (click)="approve(c.id)" [disabled]="c.status === 'APPROVED'">
+                  ✓ Approuver
+                </button>
+                <button class="btn btn-sm btn-danger" (click)="reject(c.id)" [disabled]="c.status === 'REJECTED'">
+                  ✗ Rejeter
+                </button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div *ngIf="!loading && !candidatures.length" class="alert alert-info text-center">
+        Aucune candidature.
+      </div>
+    </div>
+  </div>
+</div>

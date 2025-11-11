@@ -1,0 +1,246 @@
+/* Sidebar styles */
+app-side-bar {
+  flex: 0 0 250px; /* Default width of the sidebar */
+  transition: flex-basis 0.3s;
+}
+
+app-side-bar.collapsed {
+  flex: 0 0 80px; /* Width when the sidebar is collapsed */
+}
+
+:host {
+  display: flex;
+}
+
+/* Main content styles */
+.main-content {
+  flex: 1;
+  padding: 50px;
+  transition: margin-left 0.3s;
+  margin-top: 60px;
+}
+
+.main-content.collapsed {
+  margin-left: -160px; /* Adjusted margin for collapsed sidebar */
+}
+
+/* Table styles */
+.project-list-table {
+  border-collapse: separate;
+  border-spacing: 0 12px;
+}
+
+.project-list-table tr {
+  background-color: #fff;
+}
+
+.table-nowrap td, .table-nowrap th {
+  white-space: nowrap;
+}
+
+.table-borderless>:not(caption)>*>* {
+  border-bottom-width: 0;
+}
+
+.table>:not(caption)>*>* {
+  padding: 0.75rem 0.75rem;
+  background-color: var(--bs-table-bg);
+  border-bottom-width: 1px;
+  box-shadow: inset 0 0 0 9999px var(--bs-table-accent-bg);
+}
+
+.avatar-sm {
+  height: 2rem;
+  width: 2rem;
+}
+
+.rounded-circle {
+  border-radius: 50% !important;
+}
+
+.me-2 {
+  margin-right: 0.5rem !important;
+}
+
+img, svg {
+  vertical-align: middle;
+}
+
+a {
+  text-decoration: none;
+}
+
+.badge-soft-danger {
+  color: #f56e6e !important;
+  background-color: rgba(245,110,110,.1);
+}
+
+.badge-soft-success {
+  color: #63ad6f !important;
+  background-color: rgba(99,173,111,.1);
+}
+
+.badge-soft-primary {
+  color: #3b76e1 !important;
+  background-color: rgba(59,118,225,.1);
+}
+
+.badge-soft-info {
+  color: #57c9eb !important;
+  background-color: rgba(87,201,235,.1);
+}
+
+.avatar-title {
+  align-items: center;
+  background-color: #3b76e1;
+  color: #fff;
+  display: flex;
+  font-weight: 500;
+  height: 100%;
+  justify-content: center;
+  width: 100%;
+}
+
+.bg-soft-primary {
+  background-color: rgba(59,118,225,.25) !important;
+}
+
+#detailsModel input[readonly] {
+  background-color: #e9ecef;
+  cursor: not-allowed;
+}
+
+.img-account-profile {
+  height: 10rem;
+}
+
+.card {
+  box-shadow: 0 0.15rem 1.75rem 0 rgb(33 40 50 / 15%);
+}
+
+.card .card-header {
+  font-weight: 500;
+}
+
+.card-header:first-child {
+  border-radius: 0.35rem 0.35rem 0 0;
+}
+
+.card-header {
+  padding: 1rem 1.35rem;
+  margin-bottom: 0;
+  background-color: rgba(33, 40, 50, 0.03);
+  border-bottom: 1px solid rgba(33, 40, 50, 0.125);
+}
+
+.form-control, .dataTable-input {
+  display: block;
+  width: 100%;
+  padding: 0.875rem 1.125rem;
+  font-size: 0.875rem;
+  font-weight: 400;
+  line-height: 1;
+  color: #69707a;
+  background-color: #fff;
+  background-clip: padding-box;
+  border: 1px solid #c5ccd6;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  border-radius: 0.35rem;
+  transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+}
+
+.nav-borders .nav-link.active {
+  color: #0061f2;
+  border-bottom-color: #0061f2;
+}
+
+.nav-borders .nav-link {
+  color: #69707a;
+  border-bottom-width: 0.125rem;
+  border-bottom-style: solid;
+  border-bottom-color: transparent;
+  padding-top: 0.5rem;
+  padding-bottom: 0.5rem;
+  padding-left: 0;
+  padding-right: 0;
+  margin-left: 1rem;
+  margin-right: 1rem;
+}
+
+.modal-header.delete-header {
+  background-color: #f8d7da;
+  border-color: #f5c6cb;
+  color: #721c24;
+}
+
+.modal-header .close {
+  margin: -1rem -1rem -1rem auto;
+}
+
+.modal-content {
+  border-radius: 0.3rem;
+  box-shadow: 0 3px 9px rgba(0, 0, 0, 0.5);
+}
+
+.modal-footer {
+  display: flex;
+  justify-content: flex-end;
+  padding: 1rem;
+}
+
+.btn {
+  margin: 0 0.25rem;
+}
+
+.btn-danger {
+  background-color: #dc3545;
+  border-color: #dc3545;
+}
+
+.btn-secondary {
+  background-color: #6c757d;
+  border-color: #6c757d;
+}
+
+/* Media query for smaller screens */
+@media (max-width: 768px) {
+  app-side-bar {
+    flex: 0 0 80px; /* Adjusted width of sidebar for small screens */
+  }
+
+  .main-content {
+    margin-left: 0; /* Remove margin when sidebar is collapsed */
+    padding: 20px; /* Reduce padding for smaller screens */
+  }
+
+  .main-content.collapsed {
+    margin-left: 0; /* Remove margin when sidebar is collapsed */
+  }
+
+  .project-list-table {
+    font-size: 0.875rem; /* Adjust table font size for smaller screens */
+  }
+
+  .card {
+    margin-bottom: 1rem; /* Add margin between cards for small screens */
+  }
+  
+  .card-header h3 {
+    font-size: 1em; /* Adjust header font size for smaller screens */
+  }
+  
+  .card-body h2 {
+    font-size: 1.5em; /* Adjust body font size for smaller screens */
+  }
+  
+  .card-body p {
+    font-size: 0.8em; /* Adjust paragraph font size for smaller screens */
+  }
+
+  .avatar-sm {
+    height: 1.5rem; /* Adjust avatar size for smaller screens */
+    width: 1.5rem;
+  }
+}

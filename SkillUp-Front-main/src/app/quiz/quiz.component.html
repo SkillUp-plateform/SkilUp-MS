@@ -1,0 +1,278 @@
+<app-side-bar-formateur (toggle)="onSidebarToggle($event)"></app-side-bar-formateur>
+
+<div class="main-content" [class.collapsed]="isSidebarCollapsed">
+  <div class="container">
+    <!-- En-tête -->
+    <div class="row align-items-center">
+      <div class="col-md-6">
+        <div class="mb-3">
+          <h5 class="card-title">
+            Liste des Quiz 
+            <span class="text-muted fw-normal ms-2">({{quizCount}})</span>
+          </h5>
+        </div>
+      </div>
+      <div class="col-md-6 text-end">
+        <button class="btn btn-primary" (click)="openAjoutModal()">
+          <i class="bx bx-plus me-1" style="color: white;"></i> Ajouter un Quiz
+        </button>
+      </div>
+    </div>
+
+    <!-- Table des Quiz -->
+    <div class="table-responsive mt-3">
+      <table class="table table-hover align-middle">
+        <thead class="table-light">
+          <tr>
+            <th>Titre</th>
+            <th>Description</th>
+            <th>Formation</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let quiz of quizzes">
+            <td>{{ quiz.title }}</td>
+            <td>{{ quiz.description }}</td>
+            <td>{{ quiz.formationId }}</td>
+            <td>
+              <button class="btn btn-link text-success p-0 me-2" 
+                      (click)="quiz.id !== undefined && loadQuestionsByQuiz(quiz.id)">
+                <i class="bx bx-show"></i> Voir questions
+              </button>
+
+              <button class="btn btn-link text-primary p-0 me-2" 
+                      (click)="quiz.id !== undefined && openAjouQuestionModal(quiz.id)">
+                <i class="bx bx-plus-circle"></i> Ajouter question
+              </button>
+
+              <button class="btn btn-link text-danger p-0 me-2" 
+                      (click)="openDeleteModal(quiz)">
+                <i class="bx bx-trash-alt"></i>
+              </button>
+
+              <button class="btn btn-link text-info p-0" 
+                      (click)="openDetailsModal(quiz)">
+                <i class="bx bx-info-circle"></i>
+              </button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- Section Liste des Questions -->
+    <div *ngIf="questions.length > 0" class="mt-5">
+      <div class="mb-3">
+        <h5 class="card-title">
+          Questions du quiz : 
+          <span class="text-primary">
+            {{ getQuizTitleById(quizIdForQuestion) }}
+          </span>
+        </h5>
+      </div>
+
+      <div class="table-responsive mt-3">
+        <table class="table table-hover align-middle">
+          <thead class="table-light">
+            <tr>
+              <th>Texte de la question</th>
+              <th>Option A</th>
+              <th>Option B</th>
+              <th>Option C</th>
+              <th>Option D</th>
+              <th>Réponse correcte</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let question of questions">
+              <td>{{ question.questionText }}</td>
+              <td>{{ question.optionA }}</td>
+              <td>{{ question.optionB }}</td>
+              <td>{{ question.optionC }}</td>
+              <td>{{ question.optionD }}</td>
+              <td>{{ question.correctAnswer }}</td>
+              <td>            
+                <button class="btn btn-link text-danger p-0 me-2" 
+                        (click)="openDeleteQuestionModal(question)">
+                  <i class="bx bx-trash-alt"></i>
+                </button>
+                <button class="btn btn-link text-info p-0" 
+                        (click)="openDetailsQuestionModal(question)">
+                  <i class="bx bx-info-circle"></i>
+                </button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div *ngIf="questions.length === 0 && quizIdForQuestion">
+      <p class="text-muted text-center mt-4">
+        Aucune question trouvée pour ce quiz.
+      </p>
+    </div>
+  </div>
+</div>
+
+<!-- 🟩 MODAL AJOUT QUIZ -->
+<div class="modal fade" id="ajouModel" tabindex="-1">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5>Ajouter un Quiz</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" (click)="closeAjoutModal()"></button>
+      </div>
+      <div class="modal-body">
+        <form>
+          <div class="mb-3">
+            <label>Titre</label>
+            <input class="form-control" [(ngModel)]="quiz.title" name="title">
+          </div>
+          <div class="mb-3">
+            <label>Description</label>
+            <textarea class="form-control" [(ngModel)]="quiz.description" name="description"></textarea>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-secondary" (click)="closeAjoutModal()">Annuler</button>
+        <button class="btn btn-primary" (click)="createQuiz()">Enregistrer</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- 🟦 MODAL AJOUT QUESTION -->
+<div class="modal fade" id="ajouQuestionModel" tabindex="-1">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5>Ajouter une Question</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" (click)="closeAjouQuestionModal()"></button>
+      </div>
+      <div class="modal-body">
+        <form>
+          <div class="mb-3">
+            <label>Texte de la question</label>
+            <input class="form-control" [(ngModel)]="question.questionText" name="questionText">
+          </div>
+
+          <div class="row">
+            <div class="col-md-6 mb-3">
+              <label>Option A</label>
+              <input class="form-control" [(ngModel)]="question.optionA" name="optionA">
+            </div>
+            <div class="col-md-6 mb-3">
+              <label>Option B</label>
+              <input class="form-control" [(ngModel)]="question.optionB" name="optionB">
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-md-6 mb-3">
+              <label>Option C</label>
+              <input class="form-control" [(ngModel)]="question.optionC" name="optionC">
+            </div>
+            <div class="col-md-6 mb-3">
+              <label>Option D</label>
+              <input class="form-control" [(ngModel)]="question.optionD" name="optionD">
+            </div>
+          </div>
+
+          <div class="mb-3">
+            <label>Bonne réponse</label>
+            <select class="form-select" [(ngModel)]="question.correctAnswer" name="correctAnswer">
+              <option value="A">Option A</option>
+              <option value="B">Option B</option>
+              <option value="C">Option C</option>
+              <option value="D">Option D</option>
+            </select>
+          </div>
+        </form>
+      </div>
+
+      <div class="modal-footer">
+        <button class="btn btn-secondary" (click)="closeAjouQuestionModal()">Annuler</button>
+        <button class="btn btn-primary" (click)="createQuestion()">Enregistrer</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- 🟥 MODAL SUPPRIMER QUIZ -->
+<div class="modal fade" id="deleteModal" tabindex="-1">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5>Supprimer le Quiz</h5>
+        <button type="button" class="btn-close" (click)="closeDeleteModal()"></button>
+      </div>
+      <div class="modal-body">
+        <p>Êtes-vous sûr de vouloir supprimer ce quiz ?</p>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-secondary" (click)="closeDeleteModal()">Annuler</button>
+        <button class="btn btn-danger" (click)="deleteQuiz()">Supprimer</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- 🟧 MODAL SUPPRIMER QUESTION -->
+<div class="modal fade" id="deleteQuestionModal" tabindex="-1">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5>Supprimer la Question</h5>
+        <button type="button" class="btn-close" (click)="closeDeleteQuestionModal()"></button>
+      </div>
+      <div class="modal-body">
+        <p>Êtes-vous sûr de vouloir supprimer cette question ?</p>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-secondary" (click)="closeDeleteQuestionModal()">Annuler</button>
+        <button class="btn btn-danger" (click)="deleteQuestion()">Supprimer</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- 🟨 MODAL DÉTAILS QUESTION -->
+<div class="modal fade" id="detailsQuestionModel" tabindex="-1">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5>Détails de la Question</h5>
+        <button type="button" class="btn-close" (click)="closeDetailsQuestionModal()"></button>
+      </div>
+      <div class="modal-body">
+        <p><strong>Question :</strong> {{ question.questionText }}</p>
+        <p><strong>Option A :</strong> {{ question.optionA }}</p>
+        <p><strong>Option B :</strong> {{ question.optionB }}</p>
+        <p><strong>Option C :</strong> {{ question.optionC }}</p>
+        <p><strong>Option D :</strong> {{ question.optionD }}</p>
+        <p><strong>Réponse correcte :</strong> {{ question.correctAnswer }}</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- 🟨 MODAL DÉTAILS QUIZ -->
+<div class="modal fade" id="detailsModel" tabindex="-1">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5>Détails de la Quiz</h5>
+        <button type="button" class="btn-close" (click)="closeDetailsModal()"></button>
+      </div>
+      <div class="modal-body">
+        <p><strong>Titre :</strong> {{ quiz.title}}</p>
+        <p><strong>Descripton :</strong> {{ quiz.description }}</p>
+        <p><strong>Formation Id :</strong> {{ quiz.formationId }}</p>
+      </div>
+    </div>
+  </div>
+</div>

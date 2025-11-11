@@ -1,0 +1,232 @@
+/* Styles pour la barre latérale */
+:host {
+  display: flex;
+}
+
+app-side-bar-user {
+  flex: 0 0 250px; /* Largeur par défaut de la barre latérale */
+  transition: flex-basis 0.3s;
+}
+
+app-side-bar-user.collapsed {
+  flex: 0 0 80px; /* Largeur lorsque la barre latérale est réduite */
+}
+
+/* Styles pour le contenu principal */
+.container-xl {
+  padding: 0 2rem;
+  margin-top: 2rem;
+  background-color: #f2f6fc;
+  color: #69707a;
+}
+
+.main-content {
+  flex: 1;
+  padding: 50px;
+  transition: margin-left 0.3s;
+  margin-top: 100px;
+}
+
+.main-content.collapsed {
+  margin-right: 80px important!; /* Ajuster la marge pour compenser la largeur réduite de la barre latérale */
+}
+
+.formation-details {
+  margin-bottom: 20px;
+  padding: 15px;
+  background-color: #fff;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+}
+
+.formation-details p {
+  margin: 0;
+  font-size: 1em;
+}
+
+.links {
+  margin-top: 20px;
+}
+
+.links h4 {
+  margin-bottom: 10px;
+}
+
+.links p {
+  margin-bottom: 5px;
+}
+
+.links a {
+  color: #007bff;
+  text-decoration: none;
+}
+
+.links a:hover {
+  text-decoration: underline;
+}
+
+/* Styles pour la section des ressources */
+.resources-section {
+  margin-top: 30px;
+  padding: 20px;
+  background-color: #fff;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+}
+
+.resources-section h4 {
+  margin-bottom: 15px;
+  color: #333;
+}
+
+.upload-group {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 20px;
+  align-items: center;
+}
+
+.file-input {
+  flex: 1;
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.upload-btn {
+  padding: 8px 16px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.upload-btn:hover:not(:disabled) {
+  background-color: #0056b3;
+}
+
+.upload-btn:disabled {
+  background-color: #6c757d;
+  cursor: not-allowed;
+}
+
+.resources-list {
+  margin-top: 20px;
+}
+
+.resource-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px;
+  border: 1px solid #e9ecef;
+  border-radius: 4px;
+  margin-bottom: 8px;
+  background-color: #f8f9fa;
+  transition: background-color 0.2s;
+}
+
+.resource-item:hover {
+  background-color: #e9ecef;
+}
+
+.resource-info {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.resource-icon {
+  font-size: 1.2em;
+}
+
+.resource-name {
+  font-weight: 500;
+  color: #333;
+}
+
+.resource-size {
+  color: #6c757d;
+  font-size: 0.9em;
+}
+
+.resource-actions {
+  display: flex;
+  gap: 8px;
+}
+
+.action-btn {
+  padding: 6px 10px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 1.1em;
+  transition: all 0.2s;
+}
+
+.download-btn {
+  background-color: #28a745;
+  color: white;
+}
+
+.download-btn:hover {
+  background-color: #1e7e34;
+}
+
+.delete-btn {
+  background-color: #dc3545;
+  color: white;
+}
+
+.delete-btn:hover {
+  background-color: #c82333;
+}
+
+.no-resources {
+  text-align: center;
+  color: #6c757d;
+  font-style: italic;
+  padding: 20px;
+}
+
+/* Styles pour les petits écrans */
+@media (max-width: 768px) {
+  app-side-bar-user {
+      flex: 0 0 80px; /* Ajuster la largeur de la barre latérale pour les petits écrans */
+  }
+
+  .main-content {
+      margin-left: 0; /* Supprimer la marge lorsque la barre latérale est réduite */
+      padding: 20px; /* Réduire le padding pour les petits écrans */
+  }
+
+  .main-content.collapsed {
+      margin-left: 0; /* Supprimer la marge lorsque la barre latérale est réduite */
+  }
+
+  .formation-details {
+      font-size: 0.875rem; /* Ajuster la taille de la police pour les petits écrans */
+  }
+
+  /* Styles responsives pour la section des ressources */
+  .upload-group {
+      flex-direction: column;
+      align-items: stretch;
+  }
+
+  .resource-item {
+      flex-direction: column;
+      align-items: stretch;
+      gap: 10px;
+  }
+
+  .resource-info {
+      justify-content: center;
+  }
+
+  .resource-actions {
+      justify-content: center;
+  }
+}
