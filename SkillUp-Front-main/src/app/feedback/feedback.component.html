@@ -1,0 +1,42 @@
+<app-side-bar-user (toggle)="onSidebarToggle($event)"></app-side-bar-user>
+
+<div class="main-content" [class.collapsed]="isSidebarCollapsed">
+  <div class="container">
+    <div class="be-comment-block">
+      <h1 class="comments-title">Comments ({{ comments.length }})</h1>
+      
+      <div *ngFor="let comment of comments" class="be-comment">
+        <div class="be-img-comment">
+          <span class="be-img-comment-text">👤</span>
+        </div>
+        <div class="be-comment-content">
+          <span class="be-comment-name">
+            <a href="#">{{ getUsernameById(comment.keycloakUserId || '') }}</a>
+          </span>
+          <span class="be-comment-time">
+            <i class="fa fa-clock-o"></i>
+            {{ comment.date | date:'short' }}
+          </span>
+          <p class="be-comment-text">{{ comment.content }}</p>
+        </div>
+      </div>
+      
+      <!-- Debug: Show raw comment data -->
+      <div *ngIf="comments.length === 0" class="alert alert-info">
+        No comments yet. Be the first to comment!
+      </div>
+
+      <form class="form-block" (ngSubmit)="submitComment(form)" #form="ngForm">
+        <div class="row">
+          <div class="col-xs-12">
+            <div class="form-group">
+              <textarea class="form-input" name="commentText" ngModel required placeholder="Your text"></textarea>
+            </div>
+          </div>
+          <button type="submit" class="btn btn-primary pull-right">Submit</button>
+        </div>
+      </form>
+      
+    </div>
+  </div>
+</div>

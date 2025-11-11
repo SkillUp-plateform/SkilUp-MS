@@ -1,0 +1,129 @@
+/* Styles pour la barre latérale */
+:host {
+    display: flex;
+  }
+  
+  app-side-bar-user {
+    flex: 0 0 250px; /* Largeur par défaut de la barre latérale */
+    transition: flex-basis 0.3s;
+  }
+  
+  app-side-bar-user.collapsed {
+    flex: 0 0 80px; /* Largeur lorsque la barre latérale est réduite */
+  }
+  
+  /* Styles pour le contenu principal */
+  .container-xl {
+    padding: 0 2rem;
+    margin-top: 2rem;
+    background-color: #f2f6fc;
+    color: #69707a;
+  }
+  
+  .main-content {
+    flex: 1;
+    padding: 50px;
+    transition: margin-left 0.3s;
+    margin-top: 100px;
+  }
+  
+  .main-content.collapsed {
+    margin-left: -130px; /* Ajuster la marge pour compenser la largeur réduite de la barre latérale */
+  }
+  
+  .formation-details {
+    margin-bottom: 20px;
+    padding: 15px;
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+  }
+  
+  .formation-details p {
+    margin: 0;
+    font-size: 1em;
+  }
+  
+  .links {
+    margin-top: 20px;
+  }
+  
+  .links h4 {
+    margin-bottom: 10px;
+  }
+  
+  .links p {
+    margin-bottom: 5px;
+  }
+  
+  .links a {
+    color: #007bff;
+    text-decoration: none;
+  }
+  
+  .links a:hover {
+    text-decoration: underline;
+  }
+  
+  /* Styles pour la section des ressources */
+  .resources-section {
+    margin-top: 30px;
+    padding: 20px;
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+  }
+  
+  .resources-section h4 {
+    margin-bottom: 15px;
+    color: #333;
+  }
+  
+  .upload-resource .input-group {
+    max-width: 500px;
+  }
+  
+  .resource-item {
+    background-color: #f8f9fa;
+    transition: background-color 0.2s;
+  }
+  
+  .resource-item:hover {
+    background-color: #e9ecef;
+  }
+  
+  .resource-info {
+    flex: 1;
+  }
+  
+  .resource-actions {
+    display: flex;
+    gap: 5px;
+  }
+  
+  .no-resources {
+    text-align: center;
+    padding: 20px;
+    font-style: italic;
+  }
+  
+  /* Styles pour les petits écrans */
+  @media (max-width: 768px) {
+    app-side-bar-user {
+        flex: 0 0 80px; /* Ajuster la largeur de la barre latérale pour les petits écrans */
+    }
+  
+    .main-content {
+        margin-left: 0; /* Supprimer la marge lorsque la barre latérale est réduite */
+        padding: 20px; /* Réduire le padding pour les petits écrans */
+    }
+  
+    .main-content.collapsed {
+        margin-left: 0; /* Supprimer la marge lorsque la barre latérale est réduite */
+    }
+  
+    .formation-details {
+        font-size: 0.875rem; /* Ajuster la taille de la police pour les petits écrans */
+    }
+  }
+  

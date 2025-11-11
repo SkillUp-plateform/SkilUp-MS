@@ -1,0 +1,140 @@
+/* Styles généraux pour le composant Dashboard */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+:host {
+  display: flex;
+}
+
+app-side-bar {
+  flex: 0 0 250px; /* Largeur par défaut de la barre latérale */
+  transition: flex-basis 0.3s;
+}
+
+app-side-bar.collapsed {
+  flex: 0 0 80px; /* Largeur lorsque la barre latérale est réduite */
+}
+
+.main-content {
+  flex: 1;
+  transition: margin-left 0.3s;
+  margin-top: 60px;
+}
+
+.main-content.collapsed {
+  margin-left: -160px; /* Ajustement de la marge lorsque la barre latérale est réduite */
+}
+
+.card-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: 20px;
+  padding: 20px;
+}
+
+.card {
+  background-color: #fff;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  transition: transform 0.3s;
+}
+
+.card:hover {
+  transform: translateY(-5px);
+}
+
+.card-content {
+  padding: 20px;
+}
+
+.card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.card-header h3 {
+  margin: 0;
+  font-size: 1.2em;
+  color: #333;
+}
+
+.icon {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.icon img {
+  width: 24px;
+  height: 24px;
+}
+
+.card-body {
+  margin-top: 20px;
+}
+
+.card-body h2 {
+  margin: 0;
+  font-size: 2em;
+  color: #333;
+}
+
+.card-body p {
+  margin: 10px 0 0;
+  color: #777;
+  font-size: 0.9em;
+}
+
+.indicator {
+  font-weight: bold;
+}
+
+.indicator.up {
+  color: #4caf50;
+}
+
+.indicator.down {
+  color: #f44336;
+}
+
+/* Media query pour écrans plus petits */
+@media (max-width: 768px) {
+  app-side-bar {
+    flex: 0 0 80px; /* Largeur réduite de la barre latérale pour les petits écrans */
+  }
+
+  .main-content {
+    margin-left: 0; /* Ajustement de la marge du contenu principal pour les petits écrans */
+  }
+
+  .main-content.collapsed {
+    margin-left: 0; /* Ajustement lorsque la barre latérale est réduite */
+  }
+
+  .card-container {
+    grid-template-columns: 1fr; /* Afficher les cartes en une seule colonne sur petits écrans */
+    padding: 10px;
+  }
+
+  .card-header h3 {
+    font-size: 1em; /* Réduire la taille du texte du header pour les petits écrans */
+  }
+
+  .card-body h2 {
+    font-size: 1.5em; /* Réduire la taille du texte du body pour les petits écrans */
+  }
+
+  .card-body p {
+    font-size: 0.8em; /* Réduire la taille du texte des paragraphes pour les petits écrans */
+  }
+}

@@ -1,0 +1,22 @@
+<div class="apply-card">
+  <h2>Postuler à une formation</h2>
+  <p class="subtitle">Complétez vos informations et joignez votre CV (PDF).</p>
+
+  <form (ngSubmit)="submit()">
+    <div class="form-row">
+      <label>Motivation</label>
+      <textarea rows="5" class="input" [ngModel]="form.value.motivation" (ngModelChange)="form.get('motivation')?.setValue($event)" name="motivation" placeholder="Expliquez votre motivation"></textarea>
+    </div>
+
+    <div class="form-row">
+      <label>CV (PDF)</label>
+      <input type="file" (change)="onFileChange($event)" accept="application/pdf" class="input">
+      <div class="file-hint" *ngIf="selectedFile">Fichier sélectionné: {{ selectedFile?.name }}</div>
+    </div>
+
+    <button class="btn-primary wide" type="submit" [disabled]="submitting">Envoyer ma candidature</button>
+
+    <div class="feedback success" *ngIf="success">{{ success }}</div>
+    <div class="feedback error" *ngIf="error">{{ error }}</div>
+  </form>
+</div>

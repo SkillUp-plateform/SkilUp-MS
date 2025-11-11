@@ -1,0 +1,71 @@
+/* Styles pour le sidebar */
+:host {
+    display: flex;
+  }
+  
+  app-side-bar-user {
+    flex: 0 0 250px; /* Largeur par défaut de la barre latérale */
+    transition: flex-basis 0.3s;
+  }
+  
+  app-side-bar-user.collapsed {
+    flex: 0 0 80px; /* Largeur lorsque la barre latérale est réduite */
+  }
+  
+  /* Styles pour le contenu principal */
+  .container-xl {
+    padding: 0 2rem;
+    margin-top: 2rem;
+    background-color: #f2f6fc;
+    color: #69707a;
+  }
+  
+  .main-content {
+    flex: 1;
+    padding: 50px;
+    transition: margin-left 0.3s;
+    margin-top: 100px;
+  }
+  
+  .main-content.collapsed {
+    margin-left: -100px; /* Ajuster la marge pour compenser la largeur réduite de la barre latérale */
+  }
+  
+  @media (max-width: 768px) {
+    .main-content {
+      margin-left: 0;
+    }
+  }
+  
+  /* Styles pour le formulaire de code d'accès */
+  .access-code-form {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh; /* Occuper toute la hauteur de la fenêtre */
+    background-color: #f9f9f9;
+    padding: 20px;
+  }
+  
+  .form-container {
+    background: white;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+  
+  .form-group {
+    margin-bottom: 15px;
+  }
+  
+  .btn {
+    margin-top: 10px;
+  }
+  
+  .btn-primary {
+    background-color: #007bff;
+    border: none;
+    color: white;
+  }
+  
+  

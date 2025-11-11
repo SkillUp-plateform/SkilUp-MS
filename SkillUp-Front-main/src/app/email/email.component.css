@@ -1,0 +1,186 @@
+/* Main content container */
+.main-content {
+    flex: 1;
+    padding: 40px;
+    transition: margin-left 0.3s;
+    margin-top: 60px;
+    background-color: #f4f7f9;
+  }
+  
+  /* Email form styles */
+  .email-form {
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 30px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    background-color: #ffffff;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+  
+  .email-form h2 {
+    margin-bottom: 20px;
+    color: #333;
+    font-size: 24px;
+    text-align: center;
+  }
+  
+  .field {
+    margin-bottom: 20px;
+  }
+  
+  .field label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: bold;
+    color: #555;
+  }
+  
+  .field input,
+  .field textarea {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 16px;
+  }
+  
+  .field textarea {
+    height: 150px;
+    resize: vertical;
+  }
+  
+  button {
+    padding: 12px 20px;
+    background-color: #4460aa;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s;
+    display: block;
+    width: 100%;
+  }
+  
+  button:hover {
+    background-color: #35508d;
+  }
+  
+  button:disabled {
+    background-color: #ccc;
+    cursor: not-allowed;
+  }
+  
+  /* Sidebar styles */
+  app-side-bar {
+    flex: 0 0 250px; /* Default width of the sidebar */
+    transition: flex-basis 0.3s;
+    background-color: #ffffff;
+    border-right: 1px solid #ddd;
+    box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+  }
+  
+  app-side-bar.collapsed {
+    flex: 0 0 80px; /* Width when the sidebar is collapsed */
+  }
+  
+  :host {
+    display: flex;
+  }
+  
+  /* Adjustments for collapsed sidebar */
+  .main-content.collapsed {
+    margin-left: -180px; /* Adjusted margin for collapsed sidebar */
+  }
+  
+  /* Media Queries for responsiveness */
+  
+  /* Devices with a max-width of 1200px */
+  @media (max-width: 1200px) {
+    .main-content {
+      padding: 30px;
+    }
+  
+    .email-form {
+      padding: 20px;
+    }
+  }
+  
+  /* Devices with a max-width of 992px */
+  @media (max-width: 992px) {
+    app-side-bar {
+      flex: 0 0 200px;
+    }
+  
+    app-side-bar.collapsed {
+      flex: 0 0 60px;
+    }
+  
+    .main-content {
+      margin-left: 60px;
+    }
+  }
+  
+  /* Devices with a max-width of 768px */
+  @media (max-width: 768px) {
+    app-side-bar {
+      flex: 0 0 150px;
+    }
+  
+    app-side-bar.collapsed {
+      flex: 0 0 50px;
+    }
+  
+    .main-content {
+      margin-left: -80px;
+    }
+  
+    .email-form {
+      padding: 15px;
+      max-width: 100%;
+    }
+  
+    .field input,
+    .field textarea {
+      font-size: 14px;
+    }
+  
+    button {
+      font-size: 14px;
+    }
+  }
+  
+  /* Devices with a max-width of 576px */
+  @media (max-width: 576px) {
+    app-side-bar {
+      flex: 0 0 100px;
+    }
+  
+    app-side-bar.collapsed {
+      flex: 0 0 40px;
+    }
+  
+    .main-content {
+      margin-left: 40px;
+      padding: 20px;
+    }
+    .main-content.collapsed {
+        margin-left: -60px;
+      }
+  
+    .email-form {
+      padding: 10px;
+    }
+  
+    .field input,
+    .field textarea {
+      font-size: 12px;
+    }
+  
+    button {
+      font-size: 12px;
+      padding: 10px 15px;
+    }
+  }
+  

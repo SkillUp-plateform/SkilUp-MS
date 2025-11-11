@@ -1,0 +1,82 @@
+<!-- Barre latérale -->
+ 
+<app-side-bar-user (toggle)="onSidebarToggle($event)"></app-side-bar-user>
+
+<!-- Contenu principal -->
+<div class="container-xl px-4 mt-4 main-content" [ngClass]="{'collapsed': isSidebarCollapsed}">
+  <div *ngIf="currentFormation">
+    <h1>{{ currentFormation.title }}</h1>
+    <div [innerHTML]="currentFormation.content"></div>
+    
+    <div class="formation-details">
+      <p><strong>Durée :</strong> {{ currentFormation.duration }}</p>
+      <p><strong>Date de début :</strong> {{ currentFormation.date }}</p>
+      <p><strong>Formateur :</strong> {{ currentFormation.formateur.firstname }} {{ currentFormation.formateur.lastname }}</p>
+    </div>
+    
+    <div class="links">
+      
+      <h4>Liens</h4>
+      <p >
+        <a [routerLink]="['/quiz', currentFormation.id]" target="_blank">Passer quiz</a>
+      </p>
+      <p *ngIf="currentFormation.meetingLink">
+        <a [href]="currentFormation.meetingLink" target="_blank">Rejoindre la réunion</a>
+      </p>
+      <p *ngIf="currentFormation.videoLink">
+        <a [href]="currentFormation.videoLink" target="_blank">Voir la dernière réunion</a>
+      </p>
+    </div>
+
+    <!-- Section des ressources -->
+    <div class="resources-section">
+      <h4>Ressources</h4>
+      
+      <!-- Interface d'upload -->
+      <div class="upload-group">
+        <input type="file" id="resourceFile" (change)="onFileSelected($event)" accept="*/*" class="file-input">
+        <button 
+          (click)="uploadResource()" 
+          [disabled]="!selectedFile || isUploading"
+          class="upload-btn">
+          {{ isUploading ? 'Téléversement...' : 'Téléverser' }}
+        </button>
+      </div>
+
+      <!-- Liste des ressources -->
+      <div class="resources-list" *ngIf="resources.length > 0">
+        <div class="resource-item" *ngFor="let resource of resources">
+          <div class="resource-info">
+            <span class="resource-icon">📄</span>
+            <span class="resource-name">{{ resource.name }}</span>
+            <span class="resource-size">({{ getFileSize(resource.size) }})</span>
+          </div>
+          <div class="resource-actions">
+            <button 
+              (click)="downloadResource(resource.id, resource.name)" 
+              class="action-btn download-btn"
+              title="Télécharger">
+              📥
+            </button>
+            <button 
+              (click)="deleteResource(resource.id)" 
+              class="action-btn delete-btn"
+              title="Supprimer">
+              🗑️
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Message si aucune ressource -->
+      <div class="no-resources" *ngIf="resources.length === 0">
+        <p>Aucune ressource disponible pour cette formation.</p>
+      </div>
+    </div>
+    
+  </div>
+  
+  <div *ngIf="!currentFormation">
+    <p>Formation non trouvée.</p>
+  </div>
+</div>

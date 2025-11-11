@@ -1,0 +1,351 @@
+<app-side-bar (toggle)="onSidebarToggle($event)"></app-side-bar>
+
+<div class="main-content" [class.collapsed]="isSidebarCollapsed">
+  <div class="container">
+    <div class="row align-items-center">
+      <div class="col-md-6">
+        <div class="mb-3">
+          <h5 class="card-title">Liste des Formations <span class="text-muted fw-normal ms-2">({{formationCount}})</span></h5>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="d-flex flex-wrap align-items-center justify-content-end gap-2 mb-3">
+          
+          <div>
+            <button class="btn btn-primary" (click)="openAjoutModal()">
+              <i class="bx bx-plus me-1" style="color: white;"></i> Ajouter
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-lg-12">
+        <div class="table-responsive">
+          <table class="table project-list-table table-nowrap align-middle table-borderless">
+            <thead>
+              <tr>
+                <th scope="col">Nom</th>
+                <th scope="col">Duree</th>
+                <th scope="col">Date</th>
+                <th scope="col">Prix</th>
+                <th scope="col">formateur</th>
+                <th scope="col" style="width: 200px;">Action</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let formation of Formations">
+                <td><img *ngIf="imageMap.has(formation.id)" [src]="getImageUrl(imageMap.get(formation.id))" alt="" class="avatar-sm rounded-circle me-2" />{{formation.title}}</td>
+                <td><span class="badge badge-soft-danger mb-0">{{formation.duration}}</span></td>
+                <td>{{formation.date}}</td>
+                <td>{{formation.prix}}</td>
+                <td>{{formation.formateur?.username || getFormateurNameById(formation.keycloakFormateurId || '') || 'N/A'}}</td>
+                <td>
+                  <ul class="list-inline mb-0">
+                    <li class="list-inline-item">
+                      <button class="btn btn-link text-primary p-0" data-bs-toggle="tooltip" data-bs-placement="top" title="Edit" (click)="editFormation(formation)">
+                        <i class="bx bx-pencil font-size-18"></i>
+                      </button>
+                    </li>
+                    <li class="list-inline-item">
+                      <button class="btn btn-link text-danger p-0" data-bs-toggle="tooltip" data-bs-placement="top" title="Delete" (click)="openDeleteModal(formation)">
+                        <i class="bx bx-trash-alt font-size-18"></i>
+                      </button>
+                    </li>
+                    <li class="list-inline-item">
+                      <button class="btn btn-link text-info p-0" data-bs-toggle="tooltip" data-bs-placement="top" title="Details" (click)="openDetailsModal(formation)">
+                        <i class="bx bx-info-circle font-size-18"></i>
+                      </button>
+                    </li>
+                  </ul>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Ajout Modal -->
+<div class="modal fade" id="ajouModel" tabindex="-1" role="dialog" aria-labelledby="ajouModelLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="ajouModelLabel">Ajouter une Formation</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" (click)="closeAjoutModal()"></button>
+      </div>
+      <div class="modal-body">
+        <div class="container-xl px-4 mt-4">
+          <hr class="mt-0 mb-4">
+          <div class="row">
+            <div class="col-xl-4">
+              <div class="card mb-4 mb-xl-0">
+                <div class="card-header">Image</div>
+                <div class="card-body text-center">
+                  <img class="img-account-profile rounded-circle mb-2" [src]="selectedFile" alt="">
+                  <br><input type="file" class="form-control" (change)="onFileSelected($event)"> <br><br>
+                </div>
+              </div>
+            </div>
+            <div class="col-xl-8">
+              <div class="card mb-4">
+                <div class="card-header">Détails de la Formation</div>
+                <div class="card-body">
+                  <form>
+                    <div class="row gx-3 mb-3">
+                      <div class="col-md-6">
+                        <label class="small mb-1" for="title">Nom</label>
+                        <input class="form-control" id="title" type="text" placeholder="Entrez le nom de la formation" [(ngModel)]="formation.title" name="title">
+                      </div>
+                      <div class="mb-3">
+                        <label class="small mb-1" for="content">Description</label>
+                        <input class="form-control" id="content" type="text" placeholder="Entrez la description" [(ngModel)]="formation.content" name="content">
+                      </div>
+                      <div class="mb-3">
+                        <label class="small mb-1" for="documentLink">Lien de document</label>
+                        <input class="form-control" id="documentLink" type="text" placeholder="Entrez le Lien de document" [(ngModel)]="formation.documentLink" name="documentLink">
+                      </div>
+                      <div class="mb-3">
+                        <label class="small mb-1" for="meetingLink">Lien de réunion</label>
+                        <input class="form-control" id="meetingLink" type="text" placeholder="Entrez le Lien de réunion" [(ngModel)]="formation.meetingLink" name="meetingLink">
+                      </div>
+                      <div class="mb-3">
+                        <label class="small mb-1" for="videoLink">Lien de vidéo</label>
+                        <input class="form-control" id="videoLink" type="text" placeholder="Entrez le Lien de vidéo" [(ngModel)]="formation.videoLink" name="videoLink">
+                      </div>
+                      <div class="col-md-6">
+                        <label class="small mb-1" for="duration">Duree</label>
+                        <input class="form-control" id="duration" type="text" placeholder="Entrez la duree" [(ngModel)]="formation.duration" name="duration">
+                      </div>
+                      <div class="col-md-6">
+                        <label class="small mb-1" for="date">Date</label>
+                        <input class="form-control" id="date" type="date" [(ngModel)]="formation.date" name="date">
+                      </div>
+                      <div class="col-md-6">
+                        <label class="small mb-1" for="prix">Prix</label>
+                        <input class="form-control" id="prix" type="text" [(ngModel)]="formation.prix" name="prix">
+                      </div>
+                      <div class="col-md-12">
+                        <label class="small mb-1 d-block">Sélectionner un Formateur</label>
+                        <div class="border p-3 rounded">
+                          <div class="form-check mb-2">
+                            <input class="form-check-input" type="radio" name="formateur" id="formateur1"
+                                   value="d1f19463-d18b-4ec6-aa74-0aa1c3a17653" 
+                                   [(ngModel)]="selectedFormateurId">
+                            <label class="form-check-label" for="formateur1">
+                              <strong>farouk</strong> (farouk@esprit.tn)
+                            </label>
+                          </div>
+                          <div class="form-check mb-2">
+                            <input class="form-check-input" type="radio" name="formateur" id="formateur2"
+                                   value="da2f4a29-fa24-4280-ba20-3136bdeb699a" 
+                                   [(ngModel)]="selectedFormateurId">
+                            <label class="form-check-label" for="formateur2">
+                              <strong>ghaith</strong> (ghaith@gmail.com)
+                            </label>
+                          </div>
+                          <div class="form-check mb-2">
+                            <input class="form-check-input" type="radio" name="formateur" id="formateur3"
+                                   value="c780e2e4-90f3-44fa-9a84-0acc68736a06" 
+                                   [(ngModel)]="selectedFormateurId">
+                            <label class="form-check-label" for="formateur3">
+                              <strong>formateurr</strong> (fromateurr@example.com)
+                            </label>
+                          </div>
+                          <div class="form-check">
+                            <input class="form-check-input" type="radio" name="formateur" id="formateur4"
+                                   value="3ebb511e-da6e-4f76-b21b-e3b14b7a61d0" 
+                                   [(ngModel)]="selectedFormateurId">
+                            <label class="form-check-label" for="formateur4">
+                              <strong>aaaaaaaaaaaaaa</strong> (m@gmail.com)
+                            </label>
+                          </div>
+                        </div>
+                        <small class="text-muted mt-2 d-block">Sélectionné: {{selectedFormateurId || 'Aucun'}}</small>
+                      </div>
+                    </div>
+                  </form>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" (click)="closeAjoutModal()">Annuler</button>
+        <button type="button" class="btn btn-primary" (click)="AjoutModel()">Enregistrer</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modif Modal -->
+<div class="modal fade" id="ModifModel" tabindex="-1" role="dialog" aria-labelledby="ModifModelLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="ModifModelLabel">Modifier la Formation</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" (click)="closeModifModal()"></button>
+      </div>
+      <div class="modal-body">
+        <div class="container-xl px-4 mt-4">
+          <hr class="mt-0 mb-4">
+          <div class="row">
+            <div class="col-xl-4">
+              <div class="card mb-4 mb-xl-0">
+                <div class="card-header">Image</div>
+                <div class="card-body text-center">
+                  <img class="img-account-profile rounded-circle mb-2" [src]="selectedFile" alt="">
+                  <br><input type="file" class="form-control" (change)="onFileSelected($event)"> <br><br>
+                </div>
+              </div>
+            </div>
+            <div class="col-xl-8">
+              <div class="card mb-4">
+                <div class="card-header">Détails de la Formation</div>
+                <div class="card-body">
+                  <form>
+                    <div class="row gx-3 mb-3">
+                      <div class="col-md-6">
+                        <label class="small mb-1" for="title">Nom</label>
+                        <input class="form-control" id="title" type="text" placeholder="Entrez le nom de la formation" [(ngModel)]="formationToUpdate.title" name="title">
+                      </div>
+                      <div class="mb-3">
+                        <label class="small mb-1" for="content">Description</label>
+                        <input class="form-control" id="content" type="text" placeholder="Entrez la description" [(ngModel)]="formationToUpdate.content" name="content">
+                      </div>
+                      <div class="mb-3">
+                        <label class="small mb-1" for="documentLink">Lien de document</label>
+                        <input class="form-control" id="documentLink" type="text" placeholder="Entrez le Lien de document" [(ngModel)]="formationToUpdate.documentLink" name="documentLink">
+                      </div>
+                      <div class="mb-3">
+                        <label class="small mb-1" for="meetingLink">Lien de réunion</label>
+                        <input class="form-control" id="meetingLink" type="text" placeholder="Entrez le Lien de réunion" [(ngModel)]="formationToUpdate.meetingLink" name="meetingLink">
+                      </div>
+                      <div class="mb-3">
+                        <label class="small mb-1" for="videoLink">Lien de vidéo</label>
+                        <input class="form-control" id="videoLink" type="text" placeholder="Entrez le Lien de vidéo" [(ngModel)]="formationToUpdate.videoLink" name="videoLink">
+                      </div>
+                      <div class="col-md-6">
+                        <label class="small mb-1" for="duration">Duree</label>
+                        <input class="form-control" id="duration" type="text" placeholder="Entrez la duree" [(ngModel)]="formationToUpdate.duration" name="duration">
+                      </div>
+                      <div class="col-md-6">
+                        <label class="small mb-1" for="date">Date</label>
+                        <input class="form-control" id="date" type="date" [(ngModel)]="formationToUpdate.date" name="date">
+                      </div>
+                      <div class="col-md-6">
+                        <label class="small mb-1" for="prix">Prix</label>
+                        <input class="form-control" id="prix" type="text" [(ngModel)]="formationToUpdate.prix" name="prix">
+                      </div>
+                      <div class="col-md-6">
+                        <label class="small mb-1" for="formateur">Formateur</label>
+                        <select class="form-control" [(ngModel)]="formationToUpdate.formateur" name="formateur" required style="color: #000 !important; background-color: #fff !important;">
+                          <option [ngValue]="null" disabled style="color: #666 !important;">-- Sélectionner un formateur --</option>
+                          <option *ngFor="let formateur of formateurs" [ngValue]="formateur" style="color: #000 !important; background-color: #fff !important;">
+                            {{formateur.username || formateur.email || 'No name'}}
+                          </option>
+                        </select>
+                      </div>
+                    </div>
+                  </form>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" (click)="closeModifModal()">Annuler</button>
+        <button type="button" class="btn btn-primary" (click)="updateFormation()">Enregistrer les modifications</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Delete Modal -->
+<div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="deleteModelLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header delete-header">
+        <h5 class="modal-title" id="deleteModelLabel">Supprimer la Formation</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" (click)="closeDeleteModal()"></button>
+      </div>
+      <div class="modal-body">
+        <p>Êtes-vous sûr de vouloir supprimer cette formation ?</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" (click)="closeDeleteModal()">Annuler</button>
+        <button type="button" class="btn btn-danger" (click)="deleteFormation()">Supprimer</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Details Modal -->
+<div class="modal fade" id="detailsModel" tabindex="-1" role="dialog" aria-labelledby="DetailsModelLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="DetailsModelLabel">Détails de la Formation</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" (click)="closeDetailsModal()"></button>
+      </div>
+      <div class="modal-body">
+        <div class="container-xl px-4 mt-4">
+          <hr class="mt-0 mb-4">
+          <div class="row">
+            <div class="col-xl-8">
+              <div class="card mb-4">
+=                <div class="card-body">
+                  <div class="row gx-3 mb-3">
+                    <div class="col-md-6">
+                      <label class="small mb-1" for="title">Nom</label>
+                      <input class="form-control" id="title" type="text" [value]="formation.title" disabled>
+                    </div>
+                    <div class="mb-3">
+                      <label class="small mb-1" for="content">Description</label>
+                      <input class="form-control" id="content" type="text" [value]="formation.content" disabled>
+                    </div>
+                    <div class="mb-3">
+                      <label class="small mb-1" for="documentLink">Lien de document</label>
+                      <input class="form-control" id="documentLink" type="text" [value]="formation.documentLink" disabled>
+                    </div>
+                    <div class="mb-3">
+                      <label class="small mb-1" for="meetingLink">Lien de réunion</label>
+                      <input class="form-control" id="meetingLink" type="text" [value]="formation.meetingLink" disabled>
+                    </div>
+                    <div class="mb-3">
+                      <label class="small mb-1" for="videoLink">Lien de vidéo</label>
+                      <input class="form-control" id="videoLink" type="text" [value]="formation.videoLink" disabled>
+                    </div>
+                    <div class="col-md-6">
+                      <label class="small mb-1" for="duration">Duree</label>
+                      <input class="form-control" id="duration" type="text" [value]="formation.duration" disabled>
+                    </div>
+                    <div class="col-md-6">
+                      <label class="small mb-1" for="date">Date</label>
+                      <input class="form-control" id="date" type="date" [value]="formation.date" disabled>
+                    </div>
+                    <div class="col-md-6">
+                      <label class="small mb-1" for="prix">Prix</label>
+                      <input class="form-control" id="prix" type="text" [value]="formation.prix" disabled>
+                    </div>
+                    <div class="col-md-6">
+                      <label class="small mb-1" for="formateur">Formateur</label>
+                      <input class="form-control" id="formateur" type="text" [value]="formation.formateur.username" disabled>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" (click)="closeDetailsModal()">Fermer</button>
+      </div>
+    </div>
+  </div>
+</div>

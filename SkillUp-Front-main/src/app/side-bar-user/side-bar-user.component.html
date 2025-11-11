@@ -1,0 +1,69 @@
+<div class="sidebar" [class.collapsed]="isCollapsed">
+  <div class="logo">
+    <i class="fas fa-bars" (click)="toggleSidebar()"></i>&nbsp;
+    <h2 *ngIf="!isCollapsed">SkillUp</h2>
+  </div>
+  <ul class="nav">
+    <li>
+      <a routerLink="/user/home" [ngClass]="{'active': activeLink === 'home'}">
+        <i class="fas fa-tachometer-alt"></i>
+        <span *ngIf="!isCollapsed">Accueil</span>
+      </a>
+    </li>
+    <li>
+      <a routerLink="/user/formateur-contact" [ngClass]="{'active': activeLink === 'Formateur'}">
+        <i class="fas fa-user"></i>
+        <span *ngIf="!isCollapsed">Formateur</span>
+      </a>
+    </li>
+    <li>
+      <a routerLink="/user/home" [ngClass]="{'active': activeLink === 'formations'}">
+        <i class="fas fa-graduation-cap"></i>
+        <span *ngIf="!isCollapsed">Mes Formations</span>
+      </a>
+    </li>
+    <li>
+      <a routerLink="/user/projets" [ngClass]="{'active': activeLink === 'projets'}">
+        <i class="fas fa-project-diagram"></i>
+        <span *ngIf="!isCollapsed">Projets</span>
+      </a>
+    </li>
+    <li>
+      <a routerLink="/user/feedback" [ngClass]="{'active': activeLink === 'commentaire'}">
+        <i class="fas fa-comments"></i>
+        <span *ngIf="!isCollapsed">Votre commentaire</span>
+      </a>
+    </li>
+    <li>
+      <a routerLink="/user/payment" [ngClass]="{'active': activeLink === 'paiement'}">
+        <i class="fas fa-credit-card"></i>
+        <span *ngIf="!isCollapsed">Paiement</span>
+      </a>
+    </li>
+    <li (click)="logout()">
+      <a [ngClass]="{'active': activeLink === 'logout'}">
+        <i class="fas fa-sign-out-alt"></i>
+        <span *ngIf="!isCollapsed">Déconnexion</span>
+      </a>
+    </li>
+  </ul>
+</div>
+
+<div class="main-content" [class.collapsed]="isCollapsed">
+  <div class="header">
+    <div class="profile">
+      <p>{{ user?.firstname }} {{ user?.lastname }}</p>&nbsp;
+    </div>
+  </div>
+  
+</div>
+<nav>
+  <ul>
+    <li>
+      <a [routerLink]="'/user/recrutement/form'" routerLinkActive="active">Postuler</a>
+    </li>
+    <li>
+      <a [routerLink]="'/user/recrutement/submit'" routerLinkActive="active">Mes candidatures</a>
+    </li>
+  </ul>
+</nav>

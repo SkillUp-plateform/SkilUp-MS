@@ -1,0 +1,104 @@
+/* Styles pour la barre latérale */
+app-side-bar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 250px; /* Ajustez la largeur selon vos besoins */
+    color: #ffffff; /* Couleur du texte */
+    transition: width 0.3s; /* Transition fluide pour le rétrécissement */
+    z-index: 1000; /* Assurez-vous que la barre latérale soit au-dessus du reste du contenu */
+    overflow-y: auto; /* Défilement si le contenu dépasse */
+  }
+  
+  app-side-bar.collapsed {
+    width: 60px; /* Largeur réduite quand la barre latérale est réduite */
+  }
+  
+  /* Styles pour le contenu principal */
+  .main-content {
+    margin-top: 70px;
+    margin-left: 250px; /* Ajustez en fonction de la largeur de la barre latérale */
+    transition: margin-left 0.3s; /* Transition fluide pour le rétrécissement */
+    padding: 20px; /* Ajoutez du padding à l'intérieur du contenu principal */
+  }
+  
+  .main-content.collapsed {
+    margin-left: 60px; /* Ajustez pour la barre latérale réduite */
+  }
+  
+  /* Styles pour les modaux */
+  .modal-dialog {
+    max-width: 500px; /* Ajustez la taille du modal */
+  }
+  
+  .modal-header {
+    background-color: rgb(98, 202, 98); /* Couleur de fond de l'en-tête du modal */
+    color: #ffffff; /* Couleur du texte de l'en-tête */
+  }
+  
+  .modal-footer {
+    border-top: 1px solid #dee2e6; /* Couleur de la bordure */
+  }
+  
+  .modal-content {
+    border-radius: 0.25rem; /* Coins arrondis */
+  }
+  
+  @media (max-width: 768px) {
+    .main-content {
+      margin-left: 28px; /* Suppression de la marge pour les écrans plus petits */
+    }
+  
+    app-side-bar {
+      width: 100%; /* Barre latérale pleine largeur sur petits écrans */
+    }
+  
+    app-side-bar.collapsed {
+      width: 100%; /* Barre latérale pleine largeur quand réduite */
+    }
+  }
+  .card-subtitle, .card-title {
+    font-weight: 400;
+}
+.card-title {
+    font-size: .875rem;
+    color: #495057;
+}
+.card {
+    margin-bottom: 24px;
+    box-shadow: 0 0 0.875rem 0 rgba(33,37,41,.05);
+}
+.card {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+    word-wrap: break-word;
+    background-color: #fff;
+    background-clip: initial;
+    border: 0 solid transparent;
+    border-radius: .25rem;
+}
+.card-body {
+    flex: 1 1 auto;
+    padding: 1.25rem;
+}
+.card-header:first-child {
+    border-radius: .25rem .25rem 0 0;
+}
+.card-header {
+    border-bottom-width: 1px;
+}
+.pb-0 {
+    padding-bottom: 0!important;
+}
+.card-header {
+    padding: 1rem 1.25rem;
+    margin-bottom: 0;
+    background-color: #fff;
+    border-bottom: 0 solid transparent;
+}
+#headerdeltemodel{
+    background-color: rgb(245, 202, 214);
+}

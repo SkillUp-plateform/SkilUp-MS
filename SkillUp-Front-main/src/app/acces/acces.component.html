@@ -1,0 +1,19 @@
+<!-- Barre latérale -->
+<app-side-bar-user (toggle)="onSidebarToggle($event)"></app-side-bar-user>
+
+<!-- Contenu principal -->
+<div class="container-xl px-4 mt-4 main-content" [ngClass]="{'collapsed': isSidebarCollapsed}">
+  <div class="access-code-form">
+    <div class="form-container">
+      <h2>Code d'Accès</h2>
+      <div class="form-group">
+        <label for="accessCode">Entrez le code d'accès :</label>&nbsp;
+        <input type="text" id="accessCode" [(ngModel)]="accessCode" name="accessCode" required>
+      </div>
+      <div class="alert alert-danger" *ngIf="loginError" style="margin-bottom: 15px;">
+        {{ loginError }}
+      </div>
+      <button type="button" class="btn btn-primary" (click)="submit()">Valider</button>
+    </div>
+  </div>
+</div>

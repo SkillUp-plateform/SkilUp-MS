@@ -1,0 +1,46 @@
+<app-side-bar-user (toggle)="onSidebarToggle($event)"></app-side-bar-user>
+
+<div class="main-content" [ngClass]="{'collapsed': isSidebarCollapsed}">
+  <div class="wrapper wrapper-content animated fadeInRight">
+    <div class="row">
+      <div class="col-lg-12">
+        <div class="ibox">
+          <div class="ibox-title">
+            Méthode de paiement
+          </div>
+          <div class="ibox-content">
+            <div class="panel-group payments-method" id="accordion">
+              <div class="panel panel-default">
+                <div class="panel-heading">
+                  <h5 class="panel-title">
+                    <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne">Stripe</a>
+                  </h5>
+                </div>
+                <div id="collapseOne" class="panel-collapse collapse in"> <!-- Assurez-vous que le panneau est ouvert par défaut -->
+                  <div class="panel-body">
+                    <div class="row">
+                      <div class="col-md-10">
+                        <h2>Résumé</h2>
+                        <strong>Formation :</strong>
+                        <div>
+                          <!-- Sélecteur de cours -->
+                          <label for="courseSelect">Sélectionnez une formation :</label>
+                          <select id="courseSelect" (change)="updatePrice()" [(ngModel)]="selectedCourse">
+                            <option *ngFor="let course of courses" [ngValue]="course">{{ course.title }} - ${{ course.prix }}</option>
+                          </select>
+                        </div>
+
+                        <!-- Bouton pour Stripe -->
+                        <button class="btn btn-primary mt-3" (click)="pay(selectedPrice)">Payer avec Stripe</button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

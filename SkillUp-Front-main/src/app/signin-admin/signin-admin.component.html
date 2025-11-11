@@ -1,0 +1,41 @@
+<section class="auth-section">
+  <div class="auth-container">
+    <div class="auth-image">
+      <img src="https://cdn-images.welcometothejungle.com/HZCwJTR-LETSPVFzLgfJgie-wBb47hIl0jbsBWk__ok/rs:auto:1500::/q:85/czM6Ly93dHRqLXByb2R1Y3Rpb24vdXBsb2Fkcy9hcnRpY2xlL2ltYWdlLzM2NzMvMTUxOTc0L2Zvcm1hdGlvbnMtbW9kZS1lbXBsb2kuanBn" alt="formulaire de connexion" class="img-fluid" style="height: 100%; object-fit: cover; border-radius: 1rem 0 0 1rem;">
+    </div>
+    <div class="auth-content">
+      <div>
+        <div class="d-flex align-items-center mb-3 pb-1">
+          <img src="../../assets/template/img/Blue Modern Free Academy Logo.png" alt="Company Logo" height="150" width="150" style="margin-left:80px; margin-top:-50px;" > 
+        </div>
+
+        <h5 class="fw-normal mb-3 pb-3" style="letter-spacing: 1px;">Connectez-vous à votre compte</h5>
+
+        <div class="alert alert-danger" *ngIf="loginError" style="margin-bottom: 15px;">
+          {{ loginError }}
+        </div>
+        <form class="auth-form" [formGroup]="forminput" (ngSubmit)="signIn()">
+          <div class="form-group">
+            <label for="username">Nom d'utilisateur</label>
+            <input type="text" id="username" formControlName="username" required>
+          </div>
+          <div class="alert" *ngIf="!forminput.get('username')?.pristine && forminput.get('username')?.hasError('required')">
+            Nom d'utilisateur est requis !
+          </div>
+        
+          <div class="form-group">
+            <label for="password">Mot de passe</label>
+            <input type="password" id="password" formControlName="password" required>
+          </div>
+          <div class="alert" *ngIf="!forminput.get('password')?.pristine && forminput.get('password')?.hasError('required')">
+            Le mot de passe est requis !
+          </div>
+        
+          
+          <button type="submit" class="auth-button">Se connecter</button>
+        </form>
+        
+      </div>
+    </div>
+  </div>
+</section>

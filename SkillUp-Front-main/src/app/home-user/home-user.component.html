@@ -1,0 +1,51 @@
+<div class="layout">
+  <!-- Sidebar fixe à gauche -->
+  <app-side-bar-user></app-side-bar-user>
+
+  <!-- Contenu principal -->
+  <div class="layout-content">
+    <!-- Hero / entête -->
+    <section class="home-hero">
+      <div class="hero-text">
+        <h1>Bienvenue, {{ user?.firstname }} {{ user?.lastname }}</h1>
+        <p>Découvrez nos formations et postulez en un clic.</p>
+        <div class="hero-actions">
+          <a class="btn btn-primary" [routerLink]="'/user/recrutement/form'">Postuler</a>
+          <a class="btn btn-secondary" [routerLink]="'/user/recrutement/submit'">Mes candidatures</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- Formations Grid -->
+    <section class="formations-section">
+      <div class="container-xl px-4 mt-4">
+        <h2 class="mb-4">📚 Mes Formations</h2>
+        
+        <div class="row">
+          <div class="col-md-4 mb-4" *ngFor="let card of cards">
+            <div class="card formation-card h-100 shadow-sm">
+              <img [src]="card.image" class="card-img-top" alt="{{ card.title }}" style="height: 200px; object-fit: cover;">
+              <div class="card-body">
+                <h5 class="card-title">{{ card.title }}</h5>
+                <p class="card-text text-muted">{{ card.description }}...</p>
+                <div class="d-grid gap-2">
+                  <button class="btn btn-primary" (click)="goToAccesPage(card)">
+                    📖 Voir les détails
+                  </button>
+                  <button class="btn btn-success" (click)="goToQuiz(card.id)">
+                    📝 Passer le quiz
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <div *ngIf="cards.length === 0" class="alert alert-info text-center">
+          <h4>📚 Aucune formation disponible</h4>
+          <p>Il n'y a pas encore de formations. Revenez plus tard!</p>
+        </div>
+      </div>
+    </section>
+  </div>
+</div>
