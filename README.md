@@ -107,5 +107,4 @@ POST /api/projets
 
 ## 🧑‍💻 Mayssa Ammari
 
-- **Farouk Abdelkebir**  
-  Projet réalisé dans le cadre de la plateforme **SkillUp**.
+
